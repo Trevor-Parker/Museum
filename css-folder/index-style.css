@@ -75,7 +75,10 @@ header {
   justify-content: center; 
   gap: 2rem;               
   padding: 2rem;
-  flex-wrap: wrap;         
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto
 }
 /*Defines main text Boxes */
 
@@ -99,9 +102,6 @@ header {
 /*makes option slightly larger when hovered over */
 main {
   min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   padding-bottom: 3rem;
 }
 /* sets the behaviour of the main text boxes */
