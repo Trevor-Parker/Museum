@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background: url('../images/magical-library-museum.jpg') center center / cover no-repeat fixed;
-  color: #f4f4f4;                /* keep global text light for dark header/hero */
+  color: #f4f4f4;          /* keep global text light for the dark hero/header */
   position: relative;
   z-index: 0;
   text-align: center;
@@ -12,7 +12,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* dark overlay */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
 
@@ -30,7 +30,6 @@ header {
   margin-top: 1rem;
   width: 100%;
 }
-
 .main-nav { text-align: center; }
 .main-nav ul {
   list-style: none;
@@ -47,44 +46,7 @@ header {
   font-size: 1.1rem;
   transition: color 0.3s ease, transform 0.2s ease;
 }
-.main-nav li a:hover {
-  color: #c8a2c8;
-  transform: scale(1.02);
-}
-
-.intro-text {
-  background: none;
-  color: #f4f4f4;
-  padding-top: 1rem;
-  font-size: 1.2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.options-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 2rem 4rem;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.option {
-  flex: 1 1 calc(33.333% - 1.33rem);
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  backdrop-filter: blur(3px);
-  box-sizing: border-box;
-  text-align: left;
-  line-height: 1.6;
-  transition: transform 0.2s ease;
-  min-width: 280px;
-}
-.option:hover { transform: scale(1.02); }
+.main-nav li a:hover { color: #c8a2c8; transform: scale(1.02); }
 
 main { min-height: 80vh; padding-bottom: 3rem; }
 
@@ -95,7 +57,11 @@ footer {
   font-size: 0.9rem;
 }
 
+/* =========================
+   Shop layout + cards
+   ========================= */
 
+/* Vertical rhythm like Collections */
 .shop-container {
   max-width: 1100px;
   margin: 2rem auto 4rem;
@@ -105,99 +71,87 @@ footer {
   gap: 3rem;
 }
 
-/* Light card with subtle magical glow */
+/* Light card with black text (readable on dark background) */
 .souvenir-item {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(0,0,0,0.12);
-  color: #111; /* black text inside cards */
+  background: rgba(255,255,255,0.98);
+  color: #111;                            /* <-- black text inside cards */
   border-radius: 12px;
-  backdrop-filter: blur(3px);
+  border: 1px solid rgba(0,0,0,0.12);
   box-shadow: 0 8px 24px rgba(0,0,0,0.45);
   overflow: hidden;
   text-align: left;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   padding: 1.25rem 1.25rem 1.35rem;
-  display: grid;
-  grid-template-columns: 1fr; /* stack on mobile */
-  gap: 1.25rem;
-}
-.souvenir-item::before {
-  content: "";
-  position: absolute;
-  inset: -2px -2px auto -2px;
-  height: 140px;
-  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,162,200,0.10), transparent 60%);
-  pointer-events: none;
+  display: grid !important;               /* force grid (stable with your markup) */
+  grid-template-columns: 1fr;             /* stack on mobile */
+  gap: 1.1rem;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 .souvenir-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 40px rgba(0,0,0,0.55);
 }
 
-/* Alternating left/right on desktop */
-@media (min-width: 860px) {
+/* Subtle magical “header glow” */
+.souvenir-item::before {
+  content: "";
+  position: absolute;
+  inset: -2px -2px auto -2px;
+  height: 120px;
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,162,200,0.10), transparent 60%);
+  pointer-events: none;
+}
+
+/* Desktop: alternate left/right without changing HTML */
+@media (min-width: 900px) {
   .souvenir-item {
     grid-template-columns: minmax(260px, 36%) 1fr;
     align-items: stretch;
-    padding: 1.25rem 1.5rem;
     gap: 1.5rem;
   }
-  .souvenir-item:nth-child(even) {
-    grid-template-columns: 1fr minmax(260px, 36%);
+  /* Image gets its own column, text goes in the other */
+  .souvenir-item > img {
+    grid-column: 1;
+    grid-row: 1 / -1;     /* span everything */
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
   }
-  .souvenir-item:nth-child(even) > img {
-    order: 2;
-  }
+  .souvenir-item > :not(img) { grid-column: 2; }
+
+  /* Flip for even cards (no markup changes needed) */
+  .souvenir-item:nth-child(even) > img { grid-column: 2; }
+  .souvenir-item:nth-child(even) > :not(img) { grid-column: 1; }
 }
 
-/* Image: mounted feel */
-.souvenir-item img {
+/* Image defaults on mobile (stacked) */
+.souvenir-item > img {
   width: 100%;
-  max-inline-size: clamp(240px, 36vw, 420px);
   height: auto;
-  aspect-ratio: 4 / 3;           /* adjust per item if needed with helpers below */
+  aspect-ratio: 4 / 3;     /* adjust with helpers below if needed per item */
   object-fit: cover;
   background: #141414;
   border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  margin-inline: auto;
   cursor: pointer;
 }
-@media (min-width: 860px) {
-  .souvenir-item img {
-    max-inline-size: none;
-    height: 100%;
-    aspect-ratio: auto;
-    object-fit: cover;
-    margin: 0;
-  }
-}
 
-/* Optional subtle tint variety */
-.souvenir-item:nth-child(3n+2)::before {
-  background: radial-gradient(1200px 200px at 50% -20%, rgba(162,200,182,0.10), transparent 60%);
-}
-.souvenir-item:nth-child(3n+3)::before {
-  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,182,162,0.10), transparent 60%);
-}
-
-/* Text styles (BLACK / dark for readability on white card) */
+/* Headings + body text (dark on light card) */
 .souvenir-item h3 {
-  margin: .25rem 0 .2rem;
+  margin: .15rem 0 .2rem;
   font-size: 1.25rem;
-  color: #1a1a1a;    /* dark heading */
+  color: #1a1a1a;
   letter-spacing: .2px;
 }
 .souvenir-item p {
   margin: .35rem 0;
   line-height: 1.55;
-  color: #333;       /* dark body */
+  color: #333;
 }
-.souvenir-item p strong,
-.price { color: #000; font-weight: 700; }
+.souvenir-item p strong, .price { color: #000; font-weight: 700; }
 
-/* Button (kept from your theme) */
+/* Button (your site’s accent style) */
 .souvenir-item button {
   margin-top: .75rem;
   width: 100%;
@@ -213,7 +167,7 @@ footer {
 .souvenir-item button:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .souvenir-item button:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(200,162,200,0.35); }
 
-/* Tooltip (title attribute) — invert for light card */
+/* Tooltip from title="" (inverted for light cards) */
 .souvenir-item[title] { position: relative; }
 .souvenir-item[title]:hover::after {
   content: attr(title);
@@ -230,7 +184,9 @@ footer {
   text-align: center;
 }
 
-/* Modal — same overlay polish, light content */
+/* =========================
+   Modal (unchanged behavior, polished look)
+   ========================= */
 .modal {
   display: none;
   position: fixed; inset: 0; z-index: 9999;
@@ -261,13 +217,28 @@ a:focus-visible, button:focus-visible {
   border-radius: 8px;
 }
 
-/* Scroll anchoring if you deep-link to items */
+/* Scroll anchoring if you deep-link items */
 .souvenir-item { scroll-margin-top: 84px; }
 
 /* =========================
-   Image aspect helpers (optional)
+   Optional image aspect helpers
+   (add to <img> class attribute per item)
    ========================= */
-.img--square   { aspect-ratio: 1/1; object-fit: cover; }
-.img--portrait { aspect-ratio: 2/3; object-fit: cover; }
-.img--wide     { aspect-ratio: 16/9; object-fit: cover; }
+.img--square   { aspect-ratio: 1 / 1; object-fit: cover; }
+.img--portrait { aspect-ratio: 2 / 3; object-fit: cover; }
+.img--wide     { aspect-ratio: 16 / 9; object-fit: cover; }
 .img--fit      { aspect-ratio: auto; object-fit: contain; background:#f7f7f7; padding:10px; border:1px solid rgba(0,0,0,.08); border-radius:10px; }
+
+/* =========================
+   Print (clean handout)
+   ========================= */
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  body::before, header, .main-nav, .modal { display: none !important; }
+  .shop-container { max-width: 1000px; gap: 1rem; }
+  .souvenir-item {
+    background: #fff; border: 1px solid #ccc; box-shadow: none;
+    grid-template-columns: 1fr 2fr !important;
+  }
+  .souvenir-item > img { height: auto; box-shadow: none; }
+}
