@@ -1,53 +1,73 @@
+/* ===== Staff Page Styles (Magical Theme) ===== */
+
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Base Styles */
+/* Base */
 body {
   font-family: 'Playfair Display', serif;
-  background-color: #f5f6f7;
-  color: #333;
-  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background: url('../images/magical-library-museum.jpg') center center / cover no-repeat fixed;
+  color: #f4f4f4;
+  position: relative;
+  z-index: 0;
+  text-align: center;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55); /* dark overlay */
+  z-index: -1;
 }
 
 /* Header */
 header {
-  background: #3c4a5c;
-  padding: 1rem 2rem;
+  padding: 2rem;
+  background-color: rgba(43, 43, 43, 0.85);
+  text-shadow: 1px 1px 2px black;
   text-align: center;
+  width: 100%;
 }
 
 header h1 {
-  color: #fff;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  color: #f4f4f4;
+  margin-bottom: 0.8rem;
 }
 
+/* Navigation */
 .main-nav ul {
   list-style: none;
   display: flex;
+  gap: 2rem;
   justify-content: center;
-  gap: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
-.main-nav a {
-  background: #54657a;
-  color: #fff;
+.main-nav li a {
   text-decoration: none;
-  padding: 0.4rem 0.9rem;
-  border-radius: 6px;
-  transition: background 0.3s ease;
+  color: #f4f4f4;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.main-nav a:hover {
-  background: #6e82a3;
+.main-nav li a:hover {
+  color: #c8a2c8;  /* Light purple */
+  transform: scale(1.05);
 }
 
 /* Staff Container */
 .staff-container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 2rem auto;
   padding: 0 1rem;
   display: flex;
@@ -55,15 +75,21 @@ header h1 {
   gap: 2rem;
 }
 
-/* Staff Member Card */
+/* Staff Member Cards */
 .staff-member {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  background: #fff;
+  gap: 2rem;
+  background-color: rgba(255, 255, 255, 0.08); /* frosted glass */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.staff-member:hover {
+  transform: scale(1.02);
 }
 
 .staff-member.reverse {
@@ -71,51 +97,64 @@ header h1 {
 }
 
 .staff-member img {
-  width: 220px;
-  height: 150px;
+  width: 240px;
+  height: 160px;
   object-fit: cover;
   border-radius: 8px;
   flex-shrink: 0;
+  border: 2px solid rgba(200, 162, 200, 0.5); /* purple tint */
+}
+
+/* Bio Text */
+.staff-bio {
+  text-align: left;
 }
 
 .staff-bio h2 {
-  font-size: 1.25rem;
-  margin-bottom: 0.3rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
   font-weight: 700;
-  color: #222;
+  color: #fff;
 }
 
 .staff-bio h4 {
   font-size: 1rem;
   font-weight: 500;
-  color: #555;
+  color: #c8a2c8; /* light purple titles */
   margin-bottom: 0.6rem;
+  font-style: italic;
 }
 
 .staff-bio p {
-  font-size: 0.95rem;
-  color: #444;
+  font-size: 1rem;
+  color: #f0f0f0;
+  line-height: 1.6;
 }
 
-/* Divider */
+/* Divider Between Cards */
 .staff-member + .staff-member {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 2rem;
 }
 
 /* Footer */
 footer {
-  background: #3c4a5c;
-  color: #ddd;
   text-align: center;
-  padding: 1rem;
-  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 0.9rem;
+  color: #ddd;
 }
 
 footer a {
-  color: #8cb8ff;
+  color: #c8a2c8;
   text-decoration: none;
   margin: 0 0.5rem;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #fff;
 }
 
 /* Responsive */
@@ -123,6 +162,10 @@ footer a {
   .staff-member,
   .staff-member.reverse {
     flex-direction: column;
+    text-align: center;
+  }
+
+  .staff-bio {
     text-align: center;
   }
 
