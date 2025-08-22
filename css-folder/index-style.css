@@ -24,7 +24,7 @@ header {
   text-align: center;
 }
 
-.dropDown {
+.header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
