@@ -115,68 +115,119 @@ footer {
   max-width: 1100px;
   margin: 2rem auto 4rem;
   padding: 0 1rem;
-  display: grid;
-  gap: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
-@media (min-width: 640px) { .shop-container { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 980px) { .shop-container { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
-/* Product card (mirrors your .option look, with glassy panel) */
+/* Card: translucent panel + gentle glow */
 .souvenir-item {
+  position: relative;
   background-color: rgba(255, 255, 255, 0.10);
   border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 10px;
+  border-radius: 12px;
   backdrop-filter: blur(3px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.45);
   overflow: hidden;
   text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  display: flex;
-  flex-direction: column;
+  padding: 1.25rem 1.25rem 1.35rem;
+  display: grid;
+  grid-template-columns: 1fr;           /* stack on mobile */
+  gap: 1.25rem;
+}
+.souvenir-item::before {
+  content: "";
+  position: absolute;
+  inset: -2px -2px auto -2px;
+  height: 160px;
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,162,200,0.14), transparent 60%);
+  pointer-events: none;
 }
 .souvenir-item:hover {
-  transform: scale(1.02);
+  transform: translateY(-2px);
   box-shadow: 0 14px 40px rgba(0,0,0,0.55);
   background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Product imagery */
+/* Alternating layout on desktop */
+@media (min-width: 860px) {
+  .souvenir-item {
+    grid-template-columns: minmax(260px, 36%) 1fr;
+    align-items: stretch;
+    padding: 1.25rem 1.5rem;
+    gap: 1.5rem;
+  }
+  .souvenir-item:nth-child(even) {
+    grid-template-columns: 1fr minmax(260px, 36%);
+  }
+  .souvenir-item:nth-child(even) > img {
+    order: 2;
+    border-right: none;
+    border-left: 1px solid rgba(255,255,255,0.28);
+  }
+}
+
+/* Image: mounted feel like Collections */
 .souvenir-item img {
-  display: block;
   width: 100%;
-  height: 220px;             /* consistent crop */
+  max-inline-size: clamp(240px, 36vw, 420px);
+  height: auto;
+  aspect-ratio: 4 / 3;                 /* consistent crop; change per item if desired */
   object-fit: cover;
   background: #141414;
-  border-bottom: 1px solid rgba(255,255,255,0.28);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.55);
+  margin-inline: auto;
+  border-right: 1px solid rgba(255,255,255,0.28);
   cursor: pointer;
+}
+@media (min-width: 860px) {
+  .souvenir-item img {
+    max-inline-size: none;              /* let grid control width */
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 10px;
+  }
+}
+
+/* Optional per-card tint variation (very subtle) */
+.souvenir-item:nth-child(3n+2)::before {
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(162,200,182,0.14), transparent 60%);
+}
+.souvenir-item:nth-child(3n+3)::before {
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,182,162,0.14), transparent 60%);
 }
 
 /* Text block */
 .souvenir-item h3 {
-  margin: 0.9rem 1rem 0.25rem;
-  font-size: 1.2rem;
-  color: #e0d0ff;            /* accent headline (lavender) */
-  letter-spacing: 0.2px;
+  margin: .25rem 0 .2rem;
+  font-size: 1.25rem;
+  color: #e0d0ff;                        /* lavender accent */
+  letter-spacing: .2px;
 }
 .souvenir-item p {
-  margin: 0.35rem 1rem;
+  margin: .35rem 0;
   line-height: 1.55;
-  color: #cfc9da;            /* muted body copy */
+  color: #cfc9da;                        /* muted body copy */
 }
 .souvenir-item p strong { color: #f4f4f4; }
+.price { font-weight: 700; color: #f4f4f4; }
 
-/* Buttons (bold, readable, full width) */
+/* Button (consistent with site) */
 .souvenir-item button {
-  margin: 0.75rem 1rem 1rem;
-  width: calc(100% - 2rem);
-  padding: 0.65rem 0.8rem;
+  margin-top: .75rem;
+  width: 100%;
+  padding: .65rem .8rem;
   font-weight: bold;
   background-color: #30336b;
   color: #fff;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.15s ease, filter 0.15s ease;
+  transition: transform .15s ease, filter .15s ease;
 }
 .souvenir-item button:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .souvenir-item button:focus-visible {
@@ -184,35 +235,27 @@ footer {
   box-shadow: 0 0 0 3px rgba(200,162,200,0.35);
 }
 
-/* Tooltip from title attribute (subtle museum note) */
-.souvenir-item[title] {
-  position: relative;
-}
+/* Tooltip from title attribute */
+.souvenir-item[title] { position: relative; }
 .souvenir-item[title]:hover::after {
   content: attr(title);
   position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 100%;
-  transform: translateY(-10px);
+  left: 16px; right: 16px; bottom: calc(100% + 8px);
   background: rgba(20,20,20,0.9);
   color: #f4f4f4;
-  font-size: 0.9rem;
-  padding: 0.5rem 0.6rem;
+  font-size: .9rem;
+  padding: .5rem .6rem;
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.15);
   box-shadow: 0 8px 22px rgba(0,0,0,0.45);
   pointer-events: none;
   text-align: center;
-  white-space: normal;
 }
 
-/* ===== Modal (matches page overlay & polish) ===== */
+/* Modal — matches your overlay polish */
 .modal {
-  display: none;              /* shown via JS */
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
   background-color: rgba(0,0,0,0.8);
   backdrop-filter: blur(2px);
 }
@@ -228,31 +271,15 @@ footer {
 }
 .modal .modal-content img { display: block; width: 100%; height: auto; }
 .close-modal {
-  position: absolute;
-  top: 10px; right: 12px;
-  font-size: 1.6rem;
-  line-height: 1;
-  cursor: pointer;
-  color: #444;
-  background: #fff;
-  border-radius: 8px;
-  padding: 0 .35rem .1rem;
-  border: 1px solid #ddd;
+  position: absolute; top: 10px; right: 12px;
+  font-size: 1.6rem; line-height: 1; cursor: pointer; color: #444;
+  background: #fff; border-radius: 8px; padding: 0 .35rem .1rem; border: 1px solid #ddd;
 }
 
-/* Keyboard focus hints globally */
-a:focus-visible,
-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(200,162,200,0.35);
-  border-radius: 8px;
+/* Keyboard focus */
+a:focus-visible, button:focus-visible {
+  outline: none; box-shadow: 0 0 0 3px rgba(200,162,200,0.35); border-radius: 8px;
 }
 
-/* Print tweaks (clean handout) */
-@media print {
-  body { background: #fff !important; color: #111 !important; }
-  body::before, header, .main-nav, .modal { display: none !important; }
-  .shop-container { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem; }
-  .souvenir-item { background: #fff; border: 1px solid #ccc; box-shadow: none; }
-  .souvenir-item img { height: auto; }
-}
+/* Optional: scroll anchoring like Collections if you deep-link items */
+.souvenir-item { scroll-margin-top: 84px; }
