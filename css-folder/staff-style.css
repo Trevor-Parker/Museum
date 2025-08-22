@@ -90,12 +90,12 @@ header h1 {
 }
 /*Alternates which way cards face*/
 .staff-member img {
-  width: 240px;
-  height: 160px;
+  width: 100%;
+  max-width: 300px;
+  height: 400px;
   object-fit: cover;
   border-radius: 8px;
-  flex-shrink: 0;
-  border: 2px solid rgba(200, 162, 200, 0.5); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
 }
 /*styles staff images*/
 .staff-bio {
