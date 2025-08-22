@@ -32,9 +32,16 @@ header {
   flex-wrap: wrap;
 }
 
+.main-nav {
+  width: 200px;        /* fixed width to contain the nav */
+  margin-left: auto;   /* push nav container to the right */
+  text-align: center;  /* center the links inside the container */
+}
+
 .main-nav ul {
   list-style: none;
   display: flex;
+  justify-content: center;
   gap: 2rem;
   margin: 0;
   padding: 0;
@@ -49,7 +56,8 @@ header {
 }
 
 .main-nav li a:hover {
-  color: #d4af37; /* gold-ish hover color */
+  color: ##c8a2c8; 
+  transform: scale(1.02);
 }
 
 .intro-text {
