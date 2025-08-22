@@ -31,22 +31,22 @@ header {
   padding: 0 2rem;
   flex-wrap: wrap;
   margin-top: 1rem; 
+  width: 100%; 
 }
 /*Displays Staff and Collection links */
-.main-nav {
-  width: auto;      
-  margin: 0;        
+.main-nav {       
   text-align: center;
 }
 /*Centers links*/
 .main-nav ul {
   list-style: none;
   display: flex;
-  justify-content: center;
   gap: 2rem;
   margin: 0;
   padding: 0;
+  justify-content: center; /* Center nav items */
 }
+/*sets overall list style */
 .main-nav li a {
   text-decoration: none;
   color: #f4f4f4;
