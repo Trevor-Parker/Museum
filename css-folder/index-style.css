@@ -12,11 +12,8 @@ body {
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* 60% dark overlay */
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* 60% dark overlay */
   z-index: -1;
 }
 
