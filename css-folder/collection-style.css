@@ -293,3 +293,135 @@ a:focus-visible {
   filter: drop-shadow(0 10px 24px rgba(200,162,200,0.25));
   transform: scale(1.01);
 }
+/* =========================
+   INTRIGUE LAYER (opt-in)
+   ========================= */
+.collections--intrigue {
+  counter-reset: artifact;
+}
+
+/* Auto-number each artifact elegantly */
+.collections--intrigue .collection-item .collection-bio h2::before {
+  counter-increment: artifact;
+  content: "Artifact " counter(artifact, decimal-leading-zero) " — ";
+  font-size: 0.65em;
+  letter-spacing: 0.08em;
+  font-variant-caps: small-caps;
+  opacity: 0.75;
+}
+
+/* Alternating layout (no HTML changes needed) */
+@media (min-width: 860px) {
+  .collections--intrigue .collection-item:nth-child(even) {
+    grid-template-columns: 1fr minmax(280px, 38%);
+  }
+  .collections--intrigue .collection-item:nth-child(even) > img {
+    order: 2;
+    border-right: none;
+    border-left: 1px solid rgba(255,255,255,0.15);
+  }
+}
+
+/* Subtle per-card accent variation for the top glow + image tint */
+.collections--intrigue .collection-item:nth-child(3n+1)::before {
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,162,200,0.14), transparent 60%);
+}
+.collections--intrigue .collection-item:nth-child(3n+2)::before {
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(162,200,182,0.14), transparent 60%);
+}
+.collections--intrigue .collection-item:nth-child(3n+3)::before {
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,182,162,0.14), transparent 60%);
+}
+.collections--intrigue .collection-item:nth-child(3n+2) > img {
+  filter: saturate(1.02) hue-rotate(8deg);
+}
+.collections--intrigue .collection-item:nth-child(3n+3) > img {
+  filter: saturate(1.02) hue-rotate(-8deg);
+}
+
+/* Featured card treatment (use .is-featured on any section) */
+.collection-item.is-featured {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+}
+.collection-item.is-featured .collection-bio h2 {
+  color: var(--accent-strong);
+  text-shadow: 0 0 30px rgba(224,208,255,0.35);
+}
+
+/* Elegant label styling (your <strong> in the list) */
+.artifact-details li strong {
+  position: relative;
+  padding-right: 0.35rem;
+}
+.artifact-details li strong::after {
+  content: "";
+  position: absolute;
+  right: -0.5rem;
+  top: 55%;
+  width: 6px;
+  height: 6px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(224,208,255,0.6);
+  box-shadow: 0 0 10px rgba(224,208,255,0.35);
+}
+
+/* Image silhouettes vary per row for “curated” feel (clip-path) */
+.collections--intrigue .collection-item:nth-child(4n+1) > img {
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+}
+.collections--intrigue .collection-item:nth-child(4n+2) > img {
+  clip-path: polygon(2% 0, 100% 0, 98% 100%, 0 92%);
+}
+.collections--intrigue .collection-item:nth-child(4n+3) > img {
+  clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 92%);
+}
+.collections--intrigue .collection-item:nth-child(4n+4) > img {
+  clip-path: polygon(0 0, 98% 6%, 100% 100%, 0 100%);
+}
+
+/* Subtle entrance motion (respects reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .collections--intrigue .collection-item {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 600ms ease-out forwards;
+  }
+  .collections--intrigue .collection-item:nth-child(1) { animation-delay: 40ms; }
+  .collections--intrigue .collection-item:nth-child(2) { animation-delay: 90ms; }
+  .collections--intrigue .collection-item:nth-child(3) { animation-delay: 140ms; }
+  .collections--intrigue .collection-item:nth-child(4) { animation-delay: 190ms; }
+  .collections--intrigue .collection-item:nth-child(5) { animation-delay: 240ms; }
+  .collections--intrigue .collection-item:nth-child(6) { animation-delay: 290ms; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Tiny type refinements */
+header h1 {
+  letter-spacing: 0.6px;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+
+.collection-bio h2 {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.artifact-details li {
+  line-height: 1.55;
+}
+
+/* Optional: a faint ruled-paper texture on bios for an archival feel */
+.collections--intrigue .collection-bio {
+  background:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) 0 0/100% 28px,
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px) 0 0/32px 100%,
+    transparent;
+  border-left: 1px solid rgba(255,255,255,0.08);
+}
