@@ -31,17 +31,18 @@
       </nav>
     </div>
   </header>
-  <!-- Sticky Mini Index (auto-generated) -->
-<aside id="toc" class="toc" aria-label="Artifact index" hidden>
-  <div class="toc__inner">
-    <h2 class="toc__title">Artifacts</h2>
-    <nav class="toc__nav" aria-label="In-page">
-      <ol class="toc__list" id="toc-list"><!-- JS populates --></ol>
-    </nav>
-  </div>
-</aside>
 
-  <main id="collections" role="main">
+  <!-- Sticky Mini Index (auto-generated) -->
+  <aside id="toc" class="toc" aria-label="Artifact index" hidden>
+    <div class="toc__inner">
+      <h2 class="toc__title">Artifacts</h2>
+      <nav class="toc__nav" aria-label="In-page">
+        <ol class="toc__list" id="toc-list"><!-- JS populates --></ol>
+      </nav>
+    </div>
+  </aside>
+
+  <main id="collections" class="collections--intrigue" role="main">
     <!-- Ocean-Weathered Va‘a Fragment -->
     <section class="collection-item" aria-labelledby="vaa-title">
       <img
@@ -252,88 +253,88 @@
       </div>
     </section>
   </main>
-  <script>
-(function () {
-  const container = document.getElementById('toc');
-  const list = document.getElementById('toc-list');
-  const headings = Array.from(document.querySelectorAll('#collections h2[id]'));
-  if (!container || !list || headings.length === 0) return;
 
-  // Build TOC items
-  const items = headings.map(h => {
-    const text = h.textContent.trim();
-    const id = h.id;
-    const li = document.createElement('li');
-    li.className = 'toc__item';
-    const a = document.createElement('a');
-    a.href = '#' + id;
-    a.textContent = text;
-    a.setAttribute('data-target', id);
-    a.setAttribute('aria-current', 'false');
-    li.appendChild(a);
-    list.appendChild(li);
-    return { id, heading: h, li, a };
-  });
+  <script defer>
+  (function () {
+    const container = document.getElementById('toc');
+    const list = document.getElementById('toc-list');
+    const headings = Array.from(document.querySelectorAll('#collections h2[id]'));
+    if (!container || !list || headings.length === 0) return;
 
-  // Reveal container once populated (prevents flash)
-  container.hidden = false;
-
-  // Active-state handler
-  let activeId = null;
-  const setActive = (id) => {
-    if (activeId === id) return;
-    activeId = id;
-    items.forEach(({ id: itemId, li, a }) => {
-      const isActive = itemId === id;
-      li.classList.toggle('is-active', isActive);
-      a.setAttribute('aria-current', isActive ? 'true' : 'false');
+    // Build TOC items
+    const items = headings.map(h => {
+      const text = h.textContent.trim();
+      const id = h.id;
+      const li = document.createElement('li');
+      li.className = 'toc__item';
+      const a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = text;
+      a.setAttribute('data-target', id);
+      a.setAttribute('aria-current', 'false');
+      li.appendChild(a);
+      list.appendChild(li);
+      return { id, heading: h, li, a };
     });
-  };
 
-  // Observe sections (use the section wrapping each h2)
-  const sectionMap = new Map();
-  headings.forEach(h => {
-    const section = h.closest('.collection-item') || h.parentElement;
-    if (section) sectionMap.set(h.id, section);
-  });
+    // Reveal container once populated (prevents flash)
+    container.hidden = false;
 
-  const observer = new IntersectionObserver((entries) => {
-    // Pick the most visible entry near the center of viewport
-    const visible = entries
-      .filter(e => e.isIntersecting)
-      .sort((a,b) => Math.abs(0.5 - a.intersectionRatio) - Math.abs(0.5 - b.intersectionRatio));
-    if (visible[0]) {
-      const id = visible[0].target.querySelector('h2[id]')?.id;
-      if (id) setActive(id);
-    }
-  }, {
-    root: null,
-    rootMargin: '-20% 0px -55% 0px', // bias to center-ish
-    threshold: [0.15, 0.35, 0.55, 0.75]
-  });
+    // Active-state handler
+    let activeId = null;
+    const setActive = (id) => {
+      if (activeId === id) return;
+      activeId = id;
+      items.forEach(({ id: itemId, li, a }) => {
+        const isActive = itemId === id;
+        li.classList.toggle('is-active', isActive);
+        a.setAttribute('aria-current', isActive ? 'true' : 'false');
+      });
+    };
 
-  sectionMap.forEach(section => observer.observe(section));
-
-  // Keep active state on hash navigation
-  window.addEventListener('hashchange', () => {
-    const id = location.hash.replace('#', '');
-    if (id && sectionMap.has(id)) setActive(id);
-  });
-
-  // Initialize active based on current scroll position
-  // (tiny delay to ensure layout settled)
-  setTimeout(() => {
-    const fromHash = location.hash.replace('#','');
-    if (fromHash && sectionMap.has(fromHash)) { setActive(fromHash); return; }
-    // Else pick the first visible
-    let found = null;
-    sectionMap.forEach((section, id) => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.2) found = id;
+    // Observe sections (use the section wrapping each h2)
+    const sectionMap = new Map();
+    headings.forEach(h => {
+      const section = h.closest('.collection-item') || h.parentElement;
+      if (section) sectionMap.set(h.id, section);
     });
-    if (found) setActive(found);
-  }, 50);
-})();
-</script>
+
+    const observer = new IntersectionObserver((entries) => {
+      // Pick the most visible entry near the center of viewport
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => Math.abs(0.5 - a.intersectionRatio) - Math.abs(0.5 - b.intersectionRatio));
+      if (visible[0]) {
+        const id = visible[0].target.querySelector('h2[id]')?.id;
+        if (id) setActive(id);
+      }
+    }, {
+      root: null,
+      rootMargin: '-20% 0px -55% 0px', // bias to center-ish
+      threshold: [0.15, 0.35, 0.55, 0.75]
+    });
+
+    sectionMap.forEach(section => observer.observe(section));
+
+    // Keep active state on hash navigation
+    window.addEventListener('hashchange', () => {
+      const id = location.hash.replace('#', '');
+      if (id && sectionMap.has(id)) setActive(id);
+    });
+
+    // Initialize active based on current scroll position
+    setTimeout(() => {
+      const fromHash = location.hash.replace('#','');
+      if (fromHash && sectionMap.has(fromHash)) { setActive(fromHash); return; }
+      let found = null;
+      sectionMap.forEach((section, id) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.2) found = id;
+      });
+      if (found) setActive(found);
+    }, 50);
+  })();
+  </script>
 </body>
 </html>
+
