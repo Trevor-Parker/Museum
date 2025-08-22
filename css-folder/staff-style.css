@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+/* set to default */
 body {
   font-family: 'Playfair Display', serif;
   margin: 0;
@@ -14,16 +14,15 @@ body {
   z-index: 0;
   text-align: center;
 }
-
+/*Sets basic style for body*/
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.55); /* dark overlay for readability */
+  background-color: rgba(0, 0, 0, 0.55);
   z-index: -1;
 }
-
-/* ===== Header ===== */
+/*Allows inputing image */
 header {
   padding: 2rem;
   background-color: rgba(43, 43, 43, 0.85);
@@ -31,14 +30,13 @@ header {
   text-align: center;
   width: 100%;
 }
-
+/*Decorates header and sets placement*/
 header h1 {
   font-size: 2.2rem;
   color: #f4f4f4;
   margin-bottom: 0.8rem;
 }
-
-/* ===== Navigation ===== */
+/*Setting font and color*/
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -47,7 +45,7 @@ header h1 {
   margin: 0;
   padding: 0;
 }
-
+/*style unordered list*/
 .main-nav li a {
   text-decoration: none;
   color: #f4f4f4;
@@ -55,13 +53,12 @@ header h1 {
   font-size: 1.1rem;
   transition: color 0.3s ease, transform 0.2s ease;
 }
-
+/*Decorating text in list*/
 .main-nav li a:hover {
-  color: #c8a2c8;  /* light purple highlight */
+  color: #c8a2c8;  
   transform: scale(1.05);
 }
-
-/* ===== Staff Container ===== */
+/*Adds Interactability*/
 .staff-container {
   max-width: 1100px;
   margin: 2rem auto;
@@ -70,40 +67,37 @@ header h1 {
   flex-direction: column;
   gap: 2rem;
 }
-
-/* ===== Staff Cards ===== */
+/*Styles Staff cards*/
 .staff-member {
   display: flex;
   align-items: center;
   gap: 2rem;
-  background-color: rgba(255, 255, 255, 0.08); /* frosted glass style */
+  background-color: rgba(255, 255, 255, 0.08); 
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
   padding: 1.8rem;
   transition: transform 0.2s ease, border 0.3s ease;
 }
-
+/*sets alignment and color for character cards*/
 .staff-member:hover {
   transform: scale(1.02);
-  border: 1px solid rgba(200, 162, 200, 0.4); /* glow purple when hovered */
+  border: 1px solid rgba(200, 162, 200, 0.4); 
 }
-
+/*Adds interactability for staff cards*/
 .staff-member.reverse {
   flex-direction: row-reverse;
 }
-
-/* Staff Images */
+/*Alternates which way cards face*/
 .staff-member img {
   width: 240px;
   height: 160px;
   object-fit: cover;
   border-radius: 8px;
   flex-shrink: 0;
-  border: 2px solid rgba(200, 162, 200, 0.5); /* subtle purple border */
+  border: 2px solid rgba(200, 162, 200, 0.5); 
 }
-
-/* Staff Bio */
+/*styles staff images*/
 .staff-bio {
   text-align: left;
 }
@@ -118,7 +112,7 @@ header h1 {
 .staff-bio h4 {
   font-size: 1rem;
   font-weight: 500;
-  color: #c8a2c8; /* light purple sub-title */
+  color: #c8a2c8;
   margin-bottom: 0.6rem;
   font-style: italic;
 }
@@ -128,14 +122,12 @@ header h1 {
   color: #e8e8e8;
   line-height: 1.6;
 }
-
-/* Divider Between Cards */
+/*The 4 calls above alter elements of the staff cards, mostly text decoration*/
 .staff-member + .staff-member {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 2rem;
 }
-
-/* ===== Footer ===== */
+/*adds border between staff cards first card not affected*/
 footer {
   text-align: center;
   padding: 1.5rem;
@@ -144,18 +136,6 @@ footer {
   color: #ddd;
 }
 
-footer a {
-  color: #c8a2c8;
-  text-decoration: none;
-  margin: 0 0.5rem;
-  transition: color 0.3s ease;
-}
-
-footer a:hover {
-  color: #fff;
-}
-
-/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .staff-member,
   .staff-member.reverse {
@@ -172,3 +152,4 @@ footer a:hover {
     height: auto;
   }
 }
+/*more alteration of staff cards*/
