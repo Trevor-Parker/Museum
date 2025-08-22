@@ -8,7 +8,7 @@ body {
   z-index: 0;
   text-align: center;
 }
-
+/* Sets the overall style of everything in the body */
 body::before {
   content: "";
   position: fixed;
@@ -16,28 +16,29 @@ body::before {
   background-color: rgba(0, 0, 0, 0.5); /* 60% dark overlay */
   z-index: -1;
 }
-
+/* coding to allow image background */
 header {
   padding: 2rem;
   background-color: #2b2b2b;
   text-shadow: 1px 1px 2px black;
   text-align: center;
 }
-
+/* styling header with color, shadow and alignment */
 .header-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; 
   align-items: center;
   padding: 0 2rem;
   flex-wrap: wrap;
+  margin-top: 1rem; 
 }
-
+/*Displays Staff and Collection links */
 .main-nav {
-  width: 200px;        /* fixed width to contain the nav */
-  margin-left: auto;   /* push nav container to the right */
-  text-align: center;  /* center the links inside the container */
+  width: auto;      
+  margin: 0;        
+  text-align: center;
 }
-
+/*Centers links*/
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -46,7 +47,6 @@ header {
   margin: 0;
   padding: 0;
 }
-
 .main-nav li a {
   text-decoration: none;
   color: #f4f4f4;
@@ -54,12 +54,12 @@ header {
   font-size: 1.1rem;
   transition: color 0.3s ease;
 }
-
+/* Decorates Links */
 .main-nav li a:hover {
   color: #c8a2c8;  /* Light purple on hover */
   transform: scale(1.02);
 }
-
+/*Increases interactivity of links*/
 .intro-text {
   background: none; /* Remove box background */
   color: #f4f4f4;
@@ -72,15 +72,16 @@ header {
 
 .options-row {
   display: flex;
-  flex-direction: column; /* Stack vertically */
-  align-items: center;     /* Center horizontally */
-  gap: 2rem;               /* Space between option blocks */
+  flex-direction: column; 
+  align-items: center;     
+  gap: 2rem;               
   padding: 2rem;
 }
+/*Defines main text Boxes */
 
 .option {
-  width: 90%;                 /* Span most of the page */
-  max-width: 1000px;          /* Prevent overly wide stretch */
+  width: 90%;                 
+  max-width: 1000px;          
   background-color: rgba(255, 255, 255, 0.1);
   padding: 2rem;
   margin: 0 auto;
@@ -92,22 +93,23 @@ header {
   line-height: 1.6;
   transition: transform 0.2s ease;
 }
-
+/*Defines main text boxes style, interactivity, and color*/
 .option:hover {
   transform: scale(1.02);
 }
-
+/*makes option slightly larger when hovered over */
 main {
-  min-height: 80vh; /* Make main section taller to push content down */
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 3rem;
 }
-
+/* sets the behaviour of the main text boxes */
 footer {
   text-align: center;
   padding: 1.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 0.9rem;
 }
+/* styles the footer */
