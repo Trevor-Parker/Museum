@@ -3,20 +3,19 @@ body {
   margin: 0;
   padding: 0;
   background: url('../images/magical-library-museum.jpg') center center / cover no-repeat fixed;
-  color: #f4f4f4;
+  color: #f4f4f4;                /* keep global text light for dark header/hero */
   position: relative;
   z-index: 0;
   text-align: center;
 }
-/* Sets the overall style of everything in the body */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* 60% dark overlay */
+  background-color: rgba(0, 0, 0, 0.5); /* dark overlay */
   z-index: -1;
 }
-/* coding to allow image background */
+
 header {
   padding: 2rem;
   background-color: #2b2b2b;
@@ -24,7 +23,6 @@ header {
   text-align: center;
   width: 100%;
 }
-/* styling header with color, shadow and alignment */
 .header-container {
   display: flex;
   justify-content: center;
@@ -32,35 +30,30 @@ header {
   margin-top: 1rem;
   width: 100%;
 }
-/*Displays Staff and Collection links */
-.main-nav {       
-  text-align: center;
-}
-/*Centers links*/
+
+.main-nav { text-align: center; }
 .main-nav ul {
   list-style: none;
   display: flex;
   gap: 2rem;
   margin: 0;
   padding: 0;
-  justify-content: center; /* Center nav items */
+  justify-content: center;
 }
-/*sets overall list style */
 .main-nav li a {
   text-decoration: none;
   color: #f4f4f4;
   font-weight: bold;
   font-size: 1.1rem;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
-/* Decorates Links */
 .main-nav li a:hover {
-  color: #c8a2c8;  /* Light purple on hover */
+  color: #c8a2c8;
   transform: scale(1.02);
 }
-/*Increases interactivity of links*/
+
 .intro-text {
-  background: none; /* Remove box background */
+  background: none;
   color: #f4f4f4;
   padding-top: 1rem;
   font-size: 1.2rem;
@@ -71,17 +64,15 @@ header {
 
 .options-row {
   display: flex;
-  justify-content: space-between;  
-  gap: 2rem;                       
+  justify-content: space-between;
+  gap: 2rem;
   padding: 2rem 4rem;
-  flex-wrap: wrap;                 
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
 }
-/*Defines main text Boxes */
-
 .option {
-  flex: 1 1 calc(33.333% - 1.33rem); 
+  flex: 1 1 calc(33.333% - 1.33rem);
   background-color: rgba(255, 255, 255, 0.1);
   padding: 2rem;
   border-radius: 8px;
@@ -91,25 +82,19 @@ header {
   text-align: left;
   line-height: 1.6;
   transition: transform 0.2s ease;
-  min-width: 280px; 
+  min-width: 280px;
 }
-/*Defines main text boxes style, interactivity, and color*/
-.option:hover {
-  transform: scale(1.02);
-}
-/*makes option slightly larger when hovered over */
-main {
-  min-height: 80vh;
-  padding-bottom: 3rem;
-}
-/* sets the behaviour of the main text boxes */
+.option:hover { transform: scale(1.02); }
+
+main { min-height: 80vh; padding-bottom: 3rem; }
+
 footer {
   text-align: center;
   padding: 1.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 0.9rem;
 }
-/* styles the footer */
+
 
 .shop-container {
   max-width: 1100px;
@@ -120,37 +105,37 @@ footer {
   gap: 3rem;
 }
 
-/* Card: translucent panel + gentle glow */
+/* Light card with subtle magical glow */
 .souvenir-item {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.10);
-  border: 1px solid rgba(255,255,255,0.35);
+  background-color: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(0,0,0,0.12);
+  color: #111; /* black text inside cards */
   border-radius: 12px;
   backdrop-filter: blur(3px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.45);
   overflow: hidden;
   text-align: left;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   padding: 1.25rem 1.25rem 1.35rem;
   display: grid;
-  grid-template-columns: 1fr;           /* stack on mobile */
+  grid-template-columns: 1fr; /* stack on mobile */
   gap: 1.25rem;
 }
 .souvenir-item::before {
   content: "";
   position: absolute;
   inset: -2px -2px auto -2px;
-  height: 160px;
-  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,162,200,0.14), transparent 60%);
+  height: 140px;
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,162,200,0.10), transparent 60%);
   pointer-events: none;
 }
 .souvenir-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 40px rgba(0,0,0,0.55);
-  background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Alternating layout on desktop */
+/* Alternating left/right on desktop */
 @media (min-width: 860px) {
   .souvenir-item {
     grid-template-columns: minmax(260px, 36%) 1fr;
@@ -163,60 +148,56 @@ footer {
   }
   .souvenir-item:nth-child(even) > img {
     order: 2;
-    border-right: none;
-    border-left: 1px solid rgba(255,255,255,0.28);
   }
 }
 
-/* Image: mounted feel like Collections */
+/* Image: mounted feel */
 .souvenir-item img {
   width: 100%;
   max-inline-size: clamp(240px, 36vw, 420px);
   height: auto;
-  aspect-ratio: 4 / 3;                 /* consistent crop; change per item if desired */
+  aspect-ratio: 4 / 3;           /* adjust per item if needed with helpers below */
   object-fit: cover;
   background: #141414;
   border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.55);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
   margin-inline: auto;
-  border-right: 1px solid rgba(255,255,255,0.28);
   cursor: pointer;
 }
 @media (min-width: 860px) {
   .souvenir-item img {
-    max-inline-size: none;              /* let grid control width */
+    max-inline-size: none;
     height: 100%;
     aspect-ratio: auto;
     object-fit: cover;
     margin: 0;
-    border-radius: 10px;
   }
 }
 
-/* Optional per-card tint variation (very subtle) */
+/* Optional subtle tint variety */
 .souvenir-item:nth-child(3n+2)::before {
-  background: radial-gradient(1200px 200px at 50% -20%, rgba(162,200,182,0.14), transparent 60%);
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(162,200,182,0.10), transparent 60%);
 }
 .souvenir-item:nth-child(3n+3)::before {
-  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,182,162,0.14), transparent 60%);
+  background: radial-gradient(1200px 200px at 50% -20%, rgba(200,182,162,0.10), transparent 60%);
 }
 
-/* Text block */
+/* Text styles (BLACK / dark for readability on white card) */
 .souvenir-item h3 {
   margin: .25rem 0 .2rem;
   font-size: 1.25rem;
-  color: #e0d0ff;                        /* lavender accent */
+  color: #1a1a1a;    /* dark heading */
   letter-spacing: .2px;
 }
 .souvenir-item p {
   margin: .35rem 0;
   line-height: 1.55;
-  color: #cfc9da;                        /* muted body copy */
+  color: #333;       /* dark body */
 }
-.souvenir-item p strong { color: #f4f4f4; }
-.price { font-weight: 700; color: #f4f4f4; }
+.souvenir-item p strong,
+.price { color: #000; font-weight: 700; }
 
-/* Button (consistent with site) */
+/* Button (kept from your theme) */
 .souvenir-item button {
   margin-top: .75rem;
   width: 100%;
@@ -230,29 +211,26 @@ footer {
   transition: transform .15s ease, filter .15s ease;
 }
 .souvenir-item button:hover { filter: brightness(1.08); transform: translateY(-1px); }
-.souvenir-item button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(200,162,200,0.35);
-}
+.souvenir-item button:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(200,162,200,0.35); }
 
-/* Tooltip from title attribute */
+/* Tooltip (title attribute) — invert for light card */
 .souvenir-item[title] { position: relative; }
 .souvenir-item[title]:hover::after {
   content: attr(title);
   position: absolute;
   left: 16px; right: 16px; bottom: calc(100% + 8px);
-  background: rgba(20,20,20,0.9);
-  color: #f4f4f4;
+  background: #111;
+  color: #fff;
   font-size: .9rem;
   padding: .5rem .6rem;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.18);
   box-shadow: 0 8px 22px rgba(0,0,0,0.45);
   pointer-events: none;
   text-align: center;
 }
 
-/* Modal — matches your overlay polish */
+/* Modal — same overlay polish, light content */
 .modal {
   display: none;
   position: fixed; inset: 0; z-index: 9999;
@@ -276,10 +254,20 @@ footer {
   background: #fff; border-radius: 8px; padding: 0 .35rem .1rem; border: 1px solid #ddd;
 }
 
-/* Keyboard focus */
+/* Accessibility focus */
 a:focus-visible, button:focus-visible {
-  outline: none; box-shadow: 0 0 0 3px rgba(200,162,200,0.35); border-radius: 8px;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(200,162,200,0.35);
+  border-radius: 8px;
 }
 
-/* Optional: scroll anchoring like Collections if you deep-link items */
+/* Scroll anchoring if you deep-link to items */
 .souvenir-item { scroll-margin-top: 84px; }
+
+/* =========================
+   Image aspect helpers (optional)
+   ========================= */
+.img--square   { aspect-ratio: 1/1; object-fit: cover; }
+.img--portrait { aspect-ratio: 2/3; object-fit: cover; }
+.img--wide     { aspect-ratio: 16/9; object-fit: cover; }
+.img--fit      { aspect-ratio: auto; object-fit: contain; background:#f7f7f7; padding:10px; border:1px solid rgba(0,0,0,.08); border-radius:10px; }
