@@ -1,28 +1,58 @@
+/*  Root & Reset */
+:root {
+  --bg-overlay: rgba(0, 0, 0, 0.6);
+  --panel: rgba(255, 255, 255, 0.08);
+  --panel-strong: rgba(255, 255, 255, 0.12);
+  --text: #f4f4f4;       /*white*/
+  --muted: #cfc9da;      /*lavender-gray*/
+  --accent: #c8a2c8;     /* lavender */
+  --accent-strong: #e0d0ff;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --border: 1px solid rgba(255, 255, 255, 0.15);
+  --focus: 0 0 0 3px rgba(200, 162, 200, 0.35);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
   font-family: 'Playfair Display', serif;
   margin: 0;
-  padding: 0;
+  color: var(--text);
   background: url('../images/magical-library-museum.jpg') center center / cover no-repeat fixed;
-  color: #f4f4f4;
   position: relative;
-  z-index: 0;
+  min-height: 100dvh;
 }
 
+/* Dimmer overlay for readability */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: var(--bg-overlay);
   z-index: -1;
 }
 
-/* Header */
+/* ========== Header & Nav ========== */
 header {
-  padding: 2rem;
-  background-color: rgba(43, 43, 43, 0.95);
-  text-shadow: 1px 1px 2px black;
+  padding: 2rem 1rem 1.5rem;
+  background-color: rgba(20, 20, 20, 0.75);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.85);
+  box-shadow: var(--shadow);
+  border-bottom: var(--border);
+}
+
+header h1 {
+  margin: 0 auto;
+  max-width: 1100px;
   text-align: center;
-  width: 100%;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .header-container {
@@ -35,71 +65,231 @@ header {
 .main-nav ul {
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem;
   margin: 0;
-  padding: 0;
-}
-
-.main-nav li a {
-  text-decoration: none;
-  color: #f4f4f4;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
-}
-
-.main-nav li a:hover {
-  color: #c8a2c8;
-}
-
-/* Collections Layout */
-.collections-container {
-  max-width: 1100px;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding: 0 1rem;
-}
-
-.collection-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 2rem;
-  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  background: var(--panel);
+  border: var(--border);
+  border-radius: var(--radius-sm);
   backdrop-filter: blur(3px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-  transition: transform 0.2s ease;
 }
 
-.collection-item:hover {
-  transform: scale(1.02);
-}
-
-.collection-item img {
-  width: 100%;
-  max-width: 350px;
-  height: 350px;
-  object-fit: cover;
+.main-nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.main-nav a:hover {
+  color: var(--accent);
+  background: rgba(255,255,255,0.05);
+}
+
+.main-nav a:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.main-nav a[aria-current="page"] {
+  color: var(--accent-strong);
+  background: var(--panel-strong);
+}
+
+/* ========== Page Container ========== */
+#collections {
+  max-width: 1100px;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+/* ========== Artifact Card ========== */
+.collection-item {
+  background: var(--panel);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: clip;
+  position: relative;
+  isolation: isolate;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+/* Subtle top glow accent */
+.collection-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 200px at 50% -20%, rgba(200,162,200,0.12), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Layout: stack on mobile, two-column on wider screens */
+.collection-item > img,
+.collection-item .collection-bio {
+  display: block;
+}
+
+.collection-item > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
+  block-size: auto;
+  display: block;
+  background: #141414;
 }
 
 .collection-bio {
-  text-align: center;
-  line-height: 1.6;
-  max-width: 700px;
+  padding: 1.25rem 1.25rem 1.75rem;
+  position: relative;
+  z-index: 1;
+  line-height: 1.65;
 }
 
 .collection-bio h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: #e0d0ff;
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
+  color: var(--accent-strong);
+  letter-spacing: 0.3px;
 }
 
 .collection-bio p {
-  font-size: 1.1rem;
+  color: var(--muted);
+  margin: 0.5rem 0 0;
+}
+
+/* Hover lift */
+.collection-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+  background: rgba(255,255,255,0.09);
+}
+
+/* Focus visibility for entire card (if made focusable later) */
+.collection-item:focus-within {
+  outline: none;
+  box-shadow: var(--focus), var(--shadow);
+}
+
+/* Two-column at >= 860px */
+@media (min-width: 860px) {
+  .collection-item {
+    display: grid;
+    grid-template-columns: minmax(280px, 38%) 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  .collection-item > img {
+    height: 100%;
+    aspect-ratio: auto;
+    border-right: var(--border);
+  }
+  .collection-bio {
+    padding: 1.5rem 1.75rem 2rem;
+  }
+}
+
+/* ========== Artifact Details List ========== */
+.artifact-details {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem 1rem;
+}
+
+.artifact-details li {
+  padding: 0.5rem 0.75rem;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.artifact-details li strong {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.3px;
+  color: var(--accent-strong);
+  display: inline-block;
+  min-width: 11ch;
+}
+
+/* Multi-column at wider sizes for dense lists */
+@media (min-width: 1100px) {
+  .artifact-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ========== Utility & Accessibility ========== */
+img {
+  border-radius: 0;
+}
+
+a { color: inherit; }
+a:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-radius: 8px;
+}
+
+/* Smooth card motion, but respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .main-nav a,
+  .collection-item {
+    transition: none !important;
+  }
+}
+
+/* ========== Print Styles (for exhibit handouts) ========== */
+@media print {
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  body::before,
+  header,
+  .main-nav { display: none !important; }
+
+  #collections {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+  }
+  .collection-item {
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  .collection-item > img {
+    border-right: none;
+  }
+  .artifact-details li {
+    background: #fafafa;
+    border-color: #ddd;
+  }
+  .collection-bio h2 {
+    color: #222;
+  }
+}
+
+/* ========== Optional: subtle image glow on hover ========== */
+.collection-item > img {
+  transition: filter 220ms ease, transform 220ms ease;
+}
+.collection-item:hover > img {
+  filter: drop-shadow(0 10px 24px rgba(200,162,200,0.25));
+  transform: scale(1.01);
 }
