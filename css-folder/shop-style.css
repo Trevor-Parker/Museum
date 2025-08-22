@@ -1,112 +1,145 @@
-body {
-  font-family: 'Playfair Display', serif;
-  margin: 0;
-  padding: 0;
-  background: url('../images/magical-library-museum.jpg') center center / cover no-repeat fixed;
-  color: #f4f4f4;
-  position: relative;
-  z-index: 0;
-  text-align: center;
+.shop-container {
+  max-width: 1100px;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+  display: grid;
+  gap: 1.75rem;
 }
-/* Sets the overall style of everything in the body */
-body::before {
-  content: "";
+@media (min-width: 640px) { .shop-container { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 980px) { .shop-container { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Product card (mirrors your .option look, with glassy panel) */
+.souvenir-item {
+  background-color: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 10px;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  overflow: hidden;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+.souvenir-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Product imagery */
+.souvenir-item img {
+  display: block;
+  width: 100%;
+  height: 220px;             /* consistent crop */
+  object-fit: cover;
+  background: #141414;
+  border-bottom: 1px solid rgba(255,255,255,0.28);
+  cursor: pointer;
+}
+
+/* Text block */
+.souvenir-item h3 {
+  margin: 0.9rem 1rem 0.25rem;
+  font-size: 1.2rem;
+  color: #e0d0ff;            /* accent headline (lavender) */
+  letter-spacing: 0.2px;
+}
+.souvenir-item p {
+  margin: 0.35rem 1rem;
+  line-height: 1.55;
+  color: #cfc9da;            /* muted body copy */
+}
+.souvenir-item p strong { color: #f4f4f4; }
+
+/* Buttons (bold, readable, full width) */
+.souvenir-item button {
+  margin: 0.75rem 1rem 1rem;
+  width: calc(100% - 2rem);
+  padding: 0.65rem 0.8rem;
+  font-weight: bold;
+  background-color: #30336b;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.souvenir-item button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.souvenir-item button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(200,162,200,0.35);
+}
+
+/* Tooltip from title attribute (subtle museum note) */
+.souvenir-item[title] {
+  position: relative;
+}
+.souvenir-item[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 100%;
+  transform: translateY(-10px);
+  background: rgba(20,20,20,0.9);
+  color: #f4f4f4;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.45);
+  pointer-events: none;
+  text-align: center;
+  white-space: normal;
+}
+
+/* ===== Modal (matches page overlay & polish) ===== */
+.modal {
+  display: none;              /* shown via JS */
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* 60% dark overlay */
-  z-index: -1;
+  z-index: 9999;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(2px);
 }
-/* coding to allow image background */
-header {
-  padding: 2rem;
-  background-color: #2b2b2b;
-  text-shadow: 1px 1px 2px black;
-  text-align: center;
-  width: 100%;
+.modal .modal-content {
+  width: min(900px, 92vw);
+  margin: 5vh auto;
+  background-color: #ffffff;
+  color: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  position: relative;
 }
-/* styling header with color, shadow and alignment */
-.header-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-  width: 100%;
-}
-/*Displays Staff and Collection links */
-.main-nav {       
-  text-align: center;
-}
-/*Centers links*/
-.main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-  justify-content: center; /* Center nav items */
-}
-/*sets overall list style */
-.main-nav li a {
-  text-decoration: none;
-  color: #f4f4f4;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
-}
-/* Decorates Links */
-.main-nav li a:hover {
-  color: #c8a2c8;  /* Light purple on hover */
-  transform: scale(1.02);
-}
-/*Increases interactivity of links*/
-.intro-text {
-  background: none; /* Remove box background */
-  color: #f4f4f4;
-  padding-top: 1rem;
-  font-size: 1.2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.options-row {
-  display: flex;
-  justify-content: space-between;  
-  gap: 2rem;                       
-  padding: 2rem 4rem;
-  flex-wrap: wrap;                 
-  max-width: 1200px;
-  margin: 0 auto;
-}
-/*Defines main text Boxes */
-
-.option {
-  flex: 1 1 calc(33.333% - 1.33rem); 
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
+.modal .modal-content img { display: block; width: 100%; height: auto; }
+.close-modal {
+  position: absolute;
+  top: 10px; right: 12px;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #444;
+  background: #fff;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  backdrop-filter: blur(3px);
-  box-sizing: border-box;
-  text-align: left;
-  line-height: 1.6;
-  transition: transform 0.2s ease;
-  min-width: 280px; 
+  padding: 0 .35rem .1rem;
+  border: 1px solid #ddd;
 }
-/*Defines main text boxes style, interactivity, and color*/
-.option:hover {
-  transform: scale(1.02);
+
+/* Keyboard focus hints globally */
+a:focus-visible,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(200,162,200,0.35);
+  border-radius: 8px;
 }
-/*makes option slightly larger when hovered over */
-main {
-  min-height: 80vh;
-  padding-bottom: 3rem;
+
+/* Print tweaks (clean handout) */
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  body::before, header, .main-nav, .modal { display: none !important; }
+  .shop-container { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem; }
+  .souvenir-item { background: #fff; border: 1px solid #ccc; box-shadow: none; }
+  .souvenir-item img { height: auto; }
 }
-/* sets the behaviour of the main text boxes */
-footer {
-  text-align: center;
-  padding: 1.5rem;
-  background-color: rgba(0, 0, 0, 0.5);
-  font-size: 0.9rem;
-}
-/* styles the footer */
