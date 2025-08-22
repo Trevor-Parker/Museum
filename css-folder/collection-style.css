@@ -534,3 +534,25 @@ html { scroll-behavior: smooth; }
   text-shadow: 0 0 8px rgba(224, 208, 255, 0.6);
   border-left: 3px solid #c8a2c8;
 }
+/* ----- Image sizing utilities for artifacts ----- */
+.collection-item > img {
+  /* cap inline size across breakpoints */
+  max-inline-size: clamp(240px, 36vw, 420px);
+  block-size: auto;
+  aspect-ratio: 4 / 3;         /* sensible default */
+  object-fit: cover;            /* fills the crop */
+  background: #141414;
+  border-right: var(--border);
+}
+
+@media (min-width: 860px) {
+  .collection-item > img { max-block-size: 420px; }
+  .collection-item.is-featured > img { max-block-size: 520px; }
+}
+
+/* Shape helpers (use any combo) */
+.img--square   { aspect-ratio: 1 / 1; }
+.img--portrait { aspect-ratio: 2 / 3; }     /* tall */
+.img--tall     { aspect-ratio: 3 / 4; }     /* slightly tall */
+.img--wide     { aspect-ratio: 16 / 9; }    /* wide banner */
+.img--fit      { object-fit: contain; padding: 10px; border: 1px solid rgba(255,255,255,0.12); }
