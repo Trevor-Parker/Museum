@@ -4,190 +4,49 @@
   <meta name="author" content="Trevor Parker" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="../css-folder/shop-style.css">
   <title>Museum Souvenir Shop</title>
-  <style>
-       .shop-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding-top: 20px;
-    }
 
-    .souvenir-item {
-      width: 250px;
-      background-color: #ffffff;
-      border: 2px solid #222;
-      padding: 10px;
-      border-radius: 6px;
-      position: relative;
-    }
+  <!-- Site font (if you use this elsewhere) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
 
-    .souvenir-item img {
-      width: 100%;
-      height: auto;
-      cursor: pointer;
-    }
-
-    .souvenir-item input[type="checkbox"] {
-      margin-right: 8px;
-    }
-
-    .souvenir-item button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 8px;
-      font-weight: bold;
-      background-color: #30336b;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .souvenir-item button:hover {
-      background-color: #130f40;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-    }
-
-    .modal-content {
-      margin: 10% auto;
-      padding: 20px;
-      background-color: #fff;
-      width: 60%;
-      border-radius: 8px;
-    }
-
-    .modal-content img {
-      width: 100%;
-      height: auto;
-    }
-
-    .close-modal {
-      float: right;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #444;
-    }
-  </style>
+  <!-- External styles come LAST (no inline <style> to avoid conflicts) -->
+  <link rel="stylesheet" href="../css-folder/shop-style.css">
 </head>
 
 <body>
   <header>
     <h1>Souvenir Shop</h1>
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
         <li><a href="../index.html">Home</a></li>
         <li><a href="history.html">History</a></li>
         <li><a href="collections.html">Collections</a></li>
         <li><a href="anthropology.html">Anthropology</a></li>
         <li><a href="archaeology.html">Archaeology</a></li>
+        <li><a href="shop.html" aria-current="page">Shop</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <div class="shop-container">
+  <main class="shop-container">
+    <!-- BEGIN SINGLE ITEM BLOCK-->
+    <div class="souvenir-item" data-id="item001" title="“Token.” — Collections">
+      <img src="../images/shop/patrons-coin-replica.jpg" alt="Patron’s Coin replica" onclick="openModal(this)" />
+      <h3>Patron’s Coin Replica (Non-Active)</h3>
+      <p>Collection: Patron’s Coin • Material: plated alloy, enamel etching • Location Found: Museum archives (unlogged) • Purpose: symbolic token of patronage.</p>
+      <p class="price"><strong>Price:</strong> $24.00</p>
+      <button onclick="addToCart('item001')">Add Patron’s Coin Replica (Non-Active) to Cart</button>
+    </div>
+    <!-- END SINGLE ITEM BLOCK -->
 
     <!-- BEGIN SINGLE ITEM BLOCK-->
-<div class="souvenir-item" data-id="item001" title="“Token.” — Collections">
-  <img src="../images/shop/patrons-coin-replica.jpg" alt="Patron’s Coin replica" onclick="openModal(this)" />
-  <h3>Patron’s Coin Replica (Non-Active)</h3>
-  <p>Collection: Patron’s Coin • Material: plated alloy, enamel etching • Location Found: Museum archives (unlogged) • Purpose: symbolic token of patronage.</p>
-  <p><strong>Price:</strong> $24.00</p>
-  <button onclick="addToCart('item001')">Add Patron’s Coin Replica (Non-Active) to Cart</button>
-</div>
-<!-- END SINGLE ITEM BLOCK -->
-
-<!-- BEGIN SINGLE ITEM BLOCK-->
-<div class="souvenir-item" data-id="item002" title="“Rose.” — Collections">
-  <img src="../images/shop/roses-charm-pendant.jpg" alt="Pendant inspired by Rose’s Twitching Charm" onclick="openModal(this)" />
-  <h3>Rose’s Charm Pendant</h3>
-  <p>Collection: Rose’s Twitching Charm • Material: braided cord, resin “bone” shard • Location Found: forest edge • Purpose: protective talisman (inspired).</p>
-  <p><strong>Price:</strong> $18.00</p>
-  <button onclick="addToCart('item002')">Add Rose’s Charm Pendant to Cart</button>
-</div>
-<!-- END SINGLE ITEM BLOCK -->
-
-<!-- BEGIN SINGLE ITEM BLOCK-->
-<div class="souvenir-item" data-id="item003" title="“Sternum.” — Collections">
-  <img src="../images/shop/archivists-sternum-print.jpg" alt="Art print of the Archivist’s Sternum Fragment" onclick="openModal(this)" />
-  <h3>Archivist’s Sternum Art Print</h3>
-  <p>Collection: Archivist’s Sternum Fragment • Material: heavy matte art paper • Location Found: misfiled in anatomical cabinet • Purpose: ritual ledger (depicted).</p>
-  <p><strong>Price:</strong> $16.00</p>
-  <button onclick="addToCart('item003')">Add Archivist’s Sternum Art Print to Cart</button>
-</div>
-<!-- END SINGLE ITEM BLOCK -->
-
-<!-- BEGIN SINGLE ITEM BLOCK-->
-<div class="souvenir-item" data-id="item004" title="“Broken Vessel.” — Collections">
-  <img src="../images/shop/vaa-fragment-model.jpg" alt="Scale model of the Ocean-Weathered Va‘a hull fragment" onclick="openModal(this)" />
-  <h3>Va‘a Hull Fragment Model (1:20)</h3>
-  <p>Collection: Ocean-Weathered Va‘a Fragment • Material: carved wood, fiber lashings • Location Found: Polynesian atoll midden • Purpose: double-hulled canoe component.</p>
-  <p><strong>Price:</strong> $32.00</p>
-  <button onclick="addToCart('item004')">Add Va‘a Hull Fragment Model (1:20) to Cart</button>
-</div>
-<!-- END SINGLE ITEM BLOCK -->
-
-<!-- BEGIN SINGLE ITEM BLOCK-->
-<div class="souvenir-item" data-id="item005" title="“Dark Crystal Shard.” — Collections">
-  <img src="../images/shop/dark-crystal-paperweight.jpg" alt="Acrylic paperweight inspired by the Dark Crystal Shard" onclick="openModal(this)" />
-  <h3>Dark Crystal Shard Paperweight</h3>
-  <p>Collection: Dark Crystal Shard • Material: cast acrylic, smoky tint • Location Found: basalt cliff crevice • Purpose: ceremonial conduit (interpreted).</p>
-  <p><strong>Price:</strong> $22.00</p>
-  <button onclick="addToCart('item005')">Add Dark Crystal Shard Paperweight to Cart</button>
-</div>
-<!-- END SINGLE ITEM BLOCK -->
-
-<!-- BEGIN SINGLE ITEM BLOCK-->
-<div class="souvenir-item" data-id="item006" title="“Echoes.” — Collections">
-  <img src="../images/shop/echoing-stone-mini.jpg" alt="Miniature of the Stone of Echoing Whispers" onclick="openModal(this)" />
-  <h3>Echoing Whispers Mini (Desk)</h3>
-  <p>Collection: Stone of Echoing Whispers • Material: resin sphere with veins • Location Found: highland ritual site • Purpose: ritual anchor for communion.</p>
-  <p><strong>Price:</strong> $20.00</p>
-  <button onclick="addToCart('item006')">Add Echoing Whispers Mini (Desk) to Cart</button>
-</div>
-<!-- END SINGLE ITEM BLOCK -->
-  </div>
-
-  <!-- MODAL -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="close-modal" onclick="closeModal()">&times;</span>
-      <img id="modal-image" src="" alt="">
+    <div class="souvenir-item" data-id="item002" title="“Rose.” — Collections">
+      <img src="../images/shop/roses-charm-pendant.jpg" alt="Pendant inspired by Rose’s Twitching Charm" onclick="openModal(this)" />
+      <h3>Rose’s Charm Pendant</h3>
+      <p>Collection: Rose’s Twitching Charm • Material: braided cord, resin “bone” shard • Location Found: forest edge • Purpose: protective talisman (inspired).</p>
+      <p class="price"><strong>Price:</strong> $18.00</p>
+      <button onclick="addToCart('item002')">Add Rose’s Charm Pendant to Cart</button>
     </div>
-  </div>
+    <!-- END SINGLE ITEM BLOCK -->
 
-  <script>
-    function addToCart(itemId) {
-      alert("Added " + itemId + " to cart (functionality to come)");
-      // Future: Push to cart array
-    }
-
-    function openModal(imgElement) {
-      const modal = document.getElementById("modal");
-      const modalImage = document.getElementById("modal-image");
-      modalImage.src = imgElement.src;
-      modalImage.alt = imgElement.alt;
-      modal.style.display = "block";
-    }
-
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-
-    // Optional: Close modal on outside click
-    window.onclick = function(event) {
-      const modal = document.getElementById("modal");
-      if (event.target === modal) {
-        closeModal();
-      }
-    }
-  </script>
-</body>
-</html>
+    <!-- BEGIN SINGLE
