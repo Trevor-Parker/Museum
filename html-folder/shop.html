@@ -8,7 +8,7 @@
 
   <!-- Site font -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
-  <!-- Page styles -->
+  <!-- External styles -->
   <link rel="stylesheet" href="../css-folder/shop-style.css">
 </head>
 
@@ -26,13 +26,16 @@
     </nav>
 
     <!-- View Cart control -->
-    <button id="viewCartBtn" onclick="location.href='cart.html'">View Cart</button>
+    <button onclick="location.href='cart.html'" id="viewCartBtn" class="view-cart-btn" aria-label="View Cart">
+      View Cart
+    </button>
   </header>
 
   <main class="shop-container">
-    <!-- ITEM 001 -->
+    <!-- ITEM 1 -->
     <div class="souvenir-item" data-id="item001" title="“Token.” — Collections">
-      <img src="../images/shop/patrons-coin-replica.png" alt="Patron’s Coin replica" onclick="openModal(this)" />
+      <img src="../images/shop/patrons-coin-replica.png"
+           alt="Patron’s Coin replica" onclick="openModal(this)" />
       <h3>Patron’s Coin Replica (Non-Active)</h3>
       <p>Collection: Patron’s Coin • Material: plated alloy, enamel etching • Location Found: Museum archives (unlogged) • Purpose: symbolic token of patronage.</p>
       <p class="price"><strong>Price:</strong> $24.00</p>
@@ -47,9 +50,10 @@
       </button>
     </div>
 
-    <!-- ITEM 002 -->
+    <!-- ITEM 2 -->
     <div class="souvenir-item" data-id="item002" title="“Rose.” — Collections">
-      <img src="../images/shop/roses-charm-pendant.png" alt="Pendant inspired by Rose’s Twitching Charm" onclick="openModal(this)" />
+      <img src="../images/shop/roses-charm-pendant.png"
+           alt="Pendant inspired by Rose’s Twitching Charm" onclick="openModal(this)" />
       <h3>Rose’s Charm Pendant</h3>
       <p>Collection: Rose’s Twitching Charm • Material: braided cord, resin “bone” shard • Location Found: forest edge • Purpose: protective talisman (inspired).</p>
       <p class="price"><strong>Price:</strong> $18.00</p>
@@ -64,9 +68,10 @@
       </button>
     </div>
 
-    <!-- ITEM 003 -->
+    <!-- ITEM 3 -->
     <div class="souvenir-item" data-id="item003" title="“Sternum.” — Collections">
-      <img src="../images/shop/archivists-sternum-print.png" alt="Art print of the Archivist’s Sternum Fragment" onclick="openModal(this)" />
+      <img src="../images/shop/archivists-sternum-print.png"
+           alt="Art print of the Archivist’s Sternum Fragment" onclick="openModal(this)" />
       <h3>Archivist’s Sternum Art Print</h3>
       <p>Collection: Archivist’s Sternum Fragment • Material: heavy matte art paper • Location Found: misfiled in anatomical cabinet • Purpose: ritual ledger (depicted).</p>
       <p class="price"><strong>Price:</strong> $16.00</p>
@@ -81,9 +86,10 @@
       </button>
     </div>
 
-    <!-- ITEM 004 -->
+    <!-- ITEM 4 -->
     <div class="souvenir-item" data-id="item004" title="“Broken Vessel.” — Collections">
-      <img src="../images/shop/vaa-fragment-model.png" alt="Scale model of the Ocean-Weathered Va‘a hull fragment" onclick="openModal(this)" />
+      <img src="../images/shop/vaa-fragment-model.png"
+           alt="Scale model of the Ocean-Weathered Va‘a hull fragment" onclick="openModal(this)" />
       <h3>Va‘a Hull Fragment Model (1:20)</h3>
       <p>Collection: Ocean-Weathered Va‘a Fragment • Material: carved wood, fiber lashings • Location Found: Polynesian atoll midden • Purpose: double-hulled canoe component.</p>
       <p class="price"><strong>Price:</strong> $32.00</p>
@@ -98,9 +104,10 @@
       </button>
     </div>
 
-    <!-- ITEM 005 -->
+    <!-- ITEM 5 -->
     <div class="souvenir-item" data-id="item005" title="“Dark Crystal Shard.” — Collections">
-      <img src="../images/shop/dark-crystal-paperweight.png" alt="Acrylic paperweight inspired by the Dark Crystal Shard" onclick="openModal(this)" />
+      <img src="../images/shop/dark-crystal-paperweight.png"
+           alt="Acrylic paperweight inspired by the Dark Crystal Shard" onclick="openModal(this)" />
       <h3>Dark Crystal Shard Paperweight</h3>
       <p>Collection: Dark Crystal Shard • Material: cast acrylic, smoky tint • Location Found: basalt cliff crevice • Purpose: ceremonial conduit (interpreted).</p>
       <p class="price"><strong>Price:</strong> $22.00</p>
@@ -115,9 +122,10 @@
       </button>
     </div>
 
-    <!-- ITEM 006 -->
+    <!-- ITEM 6 -->
     <div class="souvenir-item" data-id="item006" title="“Echoes.” — Collections">
-      <img src="../images/shop/echoing-stone-mini.png" alt="Miniature of the Stone of Echoing Whispers" onclick="openModal(this)" />
+      <img src="../images/shop/echoing-stone-mini.png"
+           alt="Miniature of the Stone of Echoing Whispers" onclick="openModal(this)" />
       <h3>Echoing Whispers Mini (Desk)</h3>
       <p>Collection: Stone of Echoing Whispers • Material: resin sphere with veins • Location Found: highland ritual site • Purpose: ritual anchor for communion.</p>
       <p class="price"><strong>Price:</strong> $20.00</p>
@@ -133,16 +141,16 @@
     </div>
   </main>
 
-  <!-- Image Modal -->
-  <div class="modal" id="modal">
+  <!-- MODAL -->
+  <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-content">
-      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <span class="close-modal" onclick="closeModal()" aria-label="Close modal">&times;</span>
       <img id="modal-image" src="" alt="">
     </div>
   </div>
 
   <script>
-    /* ================== CART STORAGE HELPERS ================== */
+    /* ===================== CART STORAGE ===================== */
     const CART_KEY = 'museumCartV1';
 
     function readCart() {
@@ -153,7 +161,7 @@
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
     }
 
-    /* ================== ADD TO CART (from button) ================== */
+    /* ===================== ADD TO CART ===================== */
     function addToCart(btn) {
       const id = btn.dataset.id;
       const name = btn.dataset.name;
@@ -169,7 +177,7 @@
       }
       writeCart(cart);
 
-      // Update this card's qty badge
+      // Update qty badge on the card
       const card = btn.closest('.souvenir-item');
       if (card) {
         const badge = card.querySelector('.qty-badge');
@@ -180,33 +188,35 @@
       }
     }
 
-    // On load: hydrate badges from cart
-    (function hydrateBadges() {
-      const cart = readCart();
-      document.querySelectorAll('.souvenir-item').forEach(card => {
-        const id = card.dataset.id;
-        const badge = card.querySelector('.qty-badge');
-        if (!badge) return;
-        const item = cart.find(it => it.id === id);
-        badge.textContent = item ? `Qty: ${item.qty}` : '';
-      });
-    })();
-
-    /* ================== IMAGE MODAL ================== */
+    /* ===================== MODAL VIEWER ===================== */
     function openModal(imgElement) {
       const modal = document.getElementById("modal");
       const modalImage = document.getElementById("modal-image");
       modalImage.src = imgElement.src;
       modalImage.alt = imgElement.alt;
       modal.style.display = "block";
+      modal.setAttribute('aria-hidden', 'false');
     }
     function closeModal() {
-      document.getElementById("modal").style.display = "none";
+      const modal = document.getElementById("modal");
+      modal.style.display = "none";
+      modal.setAttribute('aria-hidden', 'true');
     }
     window.onclick = function(event) {
       const modal = document.getElementById("modal");
       if (event.target === modal) closeModal();
     }
+
+    /* ===================== INIT: restore qty badges ===================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      const cart = readCart();
+      document.querySelectorAll('.souvenir-item').forEach(card => {
+        const id = card.getAttribute('data-id');
+        const item = cart.find(it => it.id === id);
+        const badge = card.querySelector('.qty-badge');
+        if (badge) badge.textContent = item ? `Qty: ${item.qty}` : '';
+      });
+    });
   </script>
 
   <footer>
@@ -216,5 +226,4 @@
 </body>
 </html>
 
-</html>
 
