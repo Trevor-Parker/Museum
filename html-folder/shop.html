@@ -8,8 +8,7 @@
 
   <!-- Site font -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
-
-  <!-- External styles (keep all CSS in your css-folder) -->
+  <!-- Page styles -->
   <link rel="stylesheet" href="../css-folder/shop-style.css">
 </head>
 
@@ -23,18 +22,15 @@
         <li><a href="collections.html">Collections</a></li>
         <li><a href="anthropology.html">Anthropology</a></li>
         <li><a href="archaeology.html">Archaeology</a></li>
-        <li><a href="shop.html" aria-current="page">Shop</a></li>
       </ul>
     </nav>
 
-    <!-- View Cart (live count optional) -->
-    <button id="viewCartBtn" onclick="location.href='cart.html'">
-      View Cart (<span id="cart-count" aria-live="polite">0</span>)
-    </button>
+    <!-- View Cart control -->
+    <button id="viewCartBtn" onclick="location.href='cart.html'">View Cart</button>
   </header>
 
   <main class="shop-container">
-    <!-- ITEM 1 -->
+    <!-- ITEM 001 -->
     <div class="souvenir-item" data-id="item001" title="“Token.” — Collections">
       <img src="../images/shop/patrons-coin-replica.png" alt="Patron’s Coin replica" onclick="openModal(this)" />
       <h3>Patron’s Coin Replica (Non-Active)</h3>
@@ -46,12 +42,12 @@
         data-id="item001"
         data-name="Patron’s Coin Replica (Non-Active)"
         data-price="24.00"
-        data-image="../images/shop/patrons-coin-replica.jpg">
+        data-image="../images/shop/patrons-coin-replica.png">
         Add Patron’s Coin Replica (Non-Active) to Cart
       </button>
     </div>
 
-    <!-- ITEM 2 -->
+    <!-- ITEM 002 -->
     <div class="souvenir-item" data-id="item002" title="“Rose.” — Collections">
       <img src="../images/shop/roses-charm-pendant.png" alt="Pendant inspired by Rose’s Twitching Charm" onclick="openModal(this)" />
       <h3>Rose’s Charm Pendant</h3>
@@ -63,12 +59,12 @@
         data-id="item002"
         data-name="Rose’s Charm Pendant"
         data-price="18.00"
-        data-image="../images/shop/roses-charm-pendant.jpg">
+        data-image="../images/shop/roses-charm-pendant.png">
         Add Rose’s Charm Pendant to Cart
       </button>
     </div>
 
-    <!-- ITEM 3 -->
+    <!-- ITEM 003 -->
     <div class="souvenir-item" data-id="item003" title="“Sternum.” — Collections">
       <img src="../images/shop/archivists-sternum-print.png" alt="Art print of the Archivist’s Sternum Fragment" onclick="openModal(this)" />
       <h3>Archivist’s Sternum Art Print</h3>
@@ -80,12 +76,12 @@
         data-id="item003"
         data-name="Archivist’s Sternum Art Print"
         data-price="16.00"
-        data-image="../images/shop/archivists-sternum-print.jpg">
+        data-image="../images/shop/archivists-sternum-print.png">
         Add Archivist’s Sternum Art Print to Cart
       </button>
     </div>
 
-    <!-- ITEM 4 -->
+    <!-- ITEM 004 -->
     <div class="souvenir-item" data-id="item004" title="“Broken Vessel.” — Collections">
       <img src="../images/shop/vaa-fragment-model.png" alt="Scale model of the Ocean-Weathered Va‘a hull fragment" onclick="openModal(this)" />
       <h3>Va‘a Hull Fragment Model (1:20)</h3>
@@ -97,12 +93,12 @@
         data-id="item004"
         data-name="Va‘a Hull Fragment Model (1:20)"
         data-price="32.00"
-        data-image="../images/shop/vaa-fragment-model.jpg">
+        data-image="../images/shop/vaa-fragment-model.png">
         Add Va‘a Hull Fragment Model (1:20) to Cart
       </button>
     </div>
 
-    <!-- ITEM 5 -->
+    <!-- ITEM 005 -->
     <div class="souvenir-item" data-id="item005" title="“Dark Crystal Shard.” — Collections">
       <img src="../images/shop/dark-crystal-paperweight.png" alt="Acrylic paperweight inspired by the Dark Crystal Shard" onclick="openModal(this)" />
       <h3>Dark Crystal Shard Paperweight</h3>
@@ -114,12 +110,12 @@
         data-id="item005"
         data-name="Dark Crystal Shard Paperweight"
         data-price="22.00"
-        data-image="../images/shop/dark-crystal-paperweight.jpg">
+        data-image="../images/shop/dark-crystal-paperweight.png">
         Add Dark Crystal Shard Paperweight to Cart
       </button>
     </div>
 
-    <!-- ITEM 6 -->
+    <!-- ITEM 006 -->
     <div class="souvenir-item" data-id="item006" title="“Echoes.” — Collections">
       <img src="../images/shop/echoing-stone-mini.png" alt="Miniature of the Stone of Echoing Whispers" onclick="openModal(this)" />
       <h3>Echoing Whispers Mini (Desk)</h3>
@@ -131,111 +127,86 @@
         data-id="item006"
         data-name="Echoing Whispers Mini (Desk)"
         data-price="20.00"
-        data-image="../images/shop/echoing-stone-mini.jpg">
+        data-image="../images/shop/echoing-stone-mini.png">
         Add Echoing Whispers Mini (Desk) to Cart
       </button>
     </div>
   </main>
 
-  <!-- MODAL -->
-  <div class="modal" id="modal" aria-hidden="true">
+  <!-- Image Modal -->
+  <div class="modal" id="modal">
     <div class="modal-content">
-      <span class="close-modal" onclick="closeModal()" aria-label="Close">&times;</span>
+      <span class="close-modal" onclick="closeModal()">&times;</span>
       <img id="modal-image" src="" alt="">
     </div>
   </div>
 
-  <!-- Inline JS for shop (you can move to /js later) -->
   <script>
-  // ===== Shop page logic (cart + modal) =====
+    /* ================== CART STORAGE HELPERS ================== */
+    const CART_KEY = 'museumCartV1';
 
-  // Link shop to cart storage
-  const CART_KEY = 'museumCartV1';
-
-  // Storage helpers
-  function readCart() {
-    try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-    catch { return []; }
-  }
-  function writeCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  }
-
-  // Header count helper (optional <span id="cart-count"> in header)
-  function updateHeaderCount(cart = readCart()) {
-    const count = cart.reduce((sum, it) => sum + (it.qty || 0), 0);
-    const el = document.getElementById('cart-count');
-    if (el) el.textContent = count;
-  }
-
-  // Add-to-cart (expects the *button element*)
-  function addToCart(btn) {
-    const id = btn.dataset.id;
-    const name = btn.dataset.name;
-    const unitPrice = Number(btn.dataset.price);
-    const image = btn.dataset.image;
-
-    if (!id || !name || Number.isNaN(unitPrice)) return;
-
-    let cart = readCart();
-    const idx = cart.findIndex(it => it.id === id);
-    if (idx >= 0) {
-      cart[idx].qty += 1;
-    } else {
-      cart.push({ id, name, unitPrice, qty: 1, image });
+    function readCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+      catch { return []; }
     }
-    writeCart(cart);
+    function writeCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
 
-    // Update qty badge on this card
-    const card = btn.closest('.souvenir-item');
-    if (card) {
-      const badge = card.querySelector('.qty-badge');
-      if (badge) {
-        const item = cart.find(it => it.id === id);
-        badge.textContent = item ? \`Qty: \${item.qty}\` : '';
+    /* ================== ADD TO CART (from button) ================== */
+    function addToCart(btn) {
+      const id = btn.dataset.id;
+      const name = btn.dataset.name;
+      const unitPrice = Number(btn.dataset.price);
+      const image = btn.dataset.image;
+
+      let cart = readCart();
+      const idx = cart.findIndex(it => it.id === id);
+      if (idx >= 0) {
+        cart[idx].qty += 1;
+      } else {
+        cart.push({ id, name, unitPrice, qty: 1, image });
+      }
+      writeCart(cart);
+
+      // Update this card's qty badge
+      const card = btn.closest('.souvenir-item');
+      if (card) {
+        const badge = card.querySelector('.qty-badge');
+        if (badge) {
+          const item = cart.find(it => it.id === id);
+          badge.textContent = item ? `Qty: ${item.qty}` : '';
+        }
       }
     }
 
-    // Update header count
-    updateHeaderCount(cart);
-  }
+    // On load: hydrate badges from cart
+    (function hydrateBadges() {
+      const cart = readCart();
+      document.querySelectorAll('.souvenir-item').forEach(card => {
+        const id = card.dataset.id;
+        const badge = card.querySelector('.qty-badge');
+        if (!badge) return;
+        const item = cart.find(it => it.id === id);
+        badge.textContent = item ? `Qty: ${item.qty}` : '';
+      });
+    })();
 
-  // Initialize qty badges on load
-  function initQtyBadges() {
-    const cart = readCart();
-    document.querySelectorAll('.souvenir-item').forEach(card => {
-      const id = card.getAttribute('data-id');
-      const badge = card.querySelector('.qty-badge');
-      if (!id || !badge) return;
-      const it = cart.find(x => x.id === id);
-      badge.textContent = it && it.qty ? \`Qty: \${it.qty}\` : '';
-    });
-    updateHeaderCount(cart);
-  }
-
-  // Simple image modal
-  function openModal(imgElement) {
-    const modal = document.getElementById("modal");
-    const modalImage = document.getElementById("modal-image");
-    if (!modal || !modalImage) return;
-    modalImage.src = imgElement.src;
-    modalImage.alt = imgElement.alt || '';
-    modal.style.display = "block";
-    modal.setAttribute('aria-hidden', 'false');
-  }
-  function closeModal() {
-    const modal = document.getElementById("modal");
-    if (!modal) return;
-    modal.style.display = "none";
-    modal.setAttribute('aria-hidden', 'true');
-  }
-  window.addEventListener('click', (event) => {
-    const modal = document.getElementById("modal");
-    if (modal && event.target === modal) closeModal();
-  });
-
-  // DOM ready
-  document.addEventListener('DOMContentLoaded', initQtyBadges);
+    /* ================== IMAGE MODAL ================== */
+    function openModal(imgElement) {
+      const modal = document.getElementById("modal");
+      const modalImage = document.getElementById("modal-image");
+      modalImage.src = imgElement.src;
+      modalImage.alt = imgElement.alt;
+      modal.style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+    window.onclick = function(event) {
+      const modal = document.getElementById("modal");
+      if (event.target === modal) closeModal();
+    }
   </script>
 
   <footer>
@@ -243,5 +214,7 @@
     <p>All art created with AI under human direction.</p>
   </footer>
 </body>
+</html>
+
 </html>
 
