@@ -223,6 +223,21 @@
     <p>&copy; Museum of Magic. Academic use only.</p>
     <p>All art created with AI under human direction.</p>
   </footer>
+  <script>
+document.querySelectorAll('.souvenir-item img').forEach(img => {
+  img.addEventListener('error', () => {
+    img.style.minHeight = '140px';
+    img.style.outline = '2px solid #e57373';
+    img.style.background = '#111';
+    console.warn('Image not found:', img.currentSrc || img.src);
+  }, { once: true });
+  if (img.complete) {
+    console.log('Resolved:', img.alt, '→', img.currentSrc || img.src);
+  } else {
+    img.addEventListener('load', () => console.log('Resolved:', img.alt, '→', img.currentSrc || img.src), { once: true });
+  }
+});
+</script>
 </body>
 </html>
 
