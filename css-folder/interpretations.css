@@ -1,177 +1,130 @@
-.subnav {
-  display: flex;
-  gap: .75rem;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto .5rem;
-  padding: .5rem 1rem;
-}
-.subnav__btn {
-  display: inline-block;
-  text-decoration: none;
-  background: rgba(255,255,255,.12);
-  color: #f4f4f4;
-  border: 1px solid rgba(255,255,255,.25);
-  padding: .5rem .9rem;
-  border-radius: 10px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  transition: transform .15s ease, filter .15s ease, background .2s ease;
-}
-.subnav__btn:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
+/* ==========================================
+   Museum of Magic — Interpretations & History
+   (subnav, instruction, CSS-only modals, histories)
+   ========================================== */
+
+:root{
+  --text: #f4f4f4;
+  --muted: #cfc9da;
+  --accent: #c8a2c8;
+  --accent-strong: #e0d0ff;
+  --panel: rgba(255,255,255,.10);
+  --panel-strong: rgba(255,255,255,.14);
+  --border: 1px solid rgba(255,255,255,.28);
+  --focus: 0 0 0 3px rgba(200,162,200,.35);
 }
 
-/* keep this narrowly named so it doesn’t conflict elsewhere */
-.notice.collections-notice {
-  max-width: 900px;
-  margin: .25rem auto 1rem;
-  padding: .6rem .9rem;
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.25);
-  border-radius: 10px;
-  color: #f4f4f4;
-  text-align: center;
+/* Subnav + instruction */
+.subnav{
+  display:flex; gap:.75rem; justify-content:center; align-items:center;
+  margin:1rem auto .5rem; padding:.5rem 1rem;
+}
+.subnav__btn{
+  display:inline-block; text-decoration:none;
+  background:rgba(255,255,255,.12); color:var(--text);
+  border:1px solid rgba(255,255,255,.25);
+  padding:.5rem .9rem; border-radius:10px; font-weight:700; letter-spacing:.2px;
+  transition:transform .15s, filter .15s, background .2s;
+}
+.subnav__btn:hover{ transform:translateY(-1px); filter:brightness(1.05); }
+.subnav__btn:focus-visible{ outline:none; box-shadow:var(--focus); }
+
+.notice{
+  max-width:900px; margin:.25rem auto 1rem; padding:.6rem .9rem;
+  background:var(--panel); border:var(--border); border-radius:10px;
+  color:var(--text); text-align:center;
 }
 
-/* ---------- Interpretation trigger (keep inside #collections) ---------- */
-#collections .interpretation-btn {
-  display: inline-block;
-  margin-top: .6rem;
-  background: #30336b;
-  color: #fff;
-  border: 0;
-  border-radius: 10px;
-  padding: .55rem .9rem;
-  font-weight: 700;
-  text-decoration: none;
+/* Interpretation trigger button under each item */
+.interpretation-btn{
+  display:inline-block; margin:.2rem 0 .6rem;
+  background:#30336b; color:#fff; border:0; border-radius:10px;
+  padding:.55rem .9rem; font-weight:700; text-decoration:none;
+  transition: transform .15s, filter .15s;
 }
-#collections .interpretation-btn:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-}
-#collections .interpretation-btn:focus-visible,
-.subnav__btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(200,162,200,.35);
-  border-radius: 8px;
-}
+.interpretation-btn:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+.interpretation-btn:focus-visible{ outline:none; box-shadow:var(--focus); }
 
-/* ---------- CSS-only MODALS (no images inside) ---------- */
-/* Use anchors like: <a href="#modal-vaa">…</a> and <section id="modal-vaa" class="modal">… */
-.modal { display: none; }
-.modal:target {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-  background: rgba(0,0,0,.8);
+/* ===== CSS-only MODALS (no images inside) ===== */
+.modal{ display:none; }
+.modal:target{
+  position:fixed; inset:0; z-index:9999;
+  display:grid; place-items:center;
+  background:rgba(0,0,0,.82);
   backdrop-filter: blur(2px);
 }
-.modal__dialog {
-  width: min(900px, 92vw);
-  background: #fff;
-  color: #111;
-  border-radius: 12px;
-  box-shadow: 0 24px 64px rgba(0,0,0,.6);
-  position: relative;
-  overflow: hidden;
+.modal__dialog{
+  width:min(900px, 92vw);
+  background:#fff; color:#111;
+  border-radius:12px; box-shadow:0 24px 64px rgba(0,0,0,.6);
+  position:relative; overflow:hidden;
 }
-.modal__close {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  border: 1px solid #ddd;
-  background: #fff;
-  color: #444;
-  border-radius: 8px;
-  font-size: 1.5rem;
-  line-height: 1;
-  padding: 0 .45rem .1rem;
-  text-decoration: none;
+.modal__close{
+  position:absolute; top:10px; right:12px;
+  border:1px solid #ddd; background:#fff; color:#444;
+  border-radius:8px; font-size:1.5rem; line-height:1;
+  padding:0 .45rem .1rem; text-decoration:none;
 }
-.modal__content {
-  padding: 1.25rem 1.25rem 1.1rem;
-  text-align: left;               /* requirement: left-justified */
+.modal__close:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(48,51,107,.45); }
+.modal__content{ padding:1.25rem 1.25rem 1.1rem; text-align:left; }
+.modal__title{ margin:0 0 .35rem; font-size:1.4rem; color:#1a1a1a; }
+.modal__body p{ margin:.5rem 0; color:#333; line-height:1.65; }
+
+/* ===== HISTORIES (hidden until targeted) ===== */
+#histories{ display:none; }
+#histories:target{ display:block; }
+
+.histories{
+  max-width:1100px;
+  margin:1.5rem auto 3rem;
+  padding:0 1rem;
+  text-align:left;
 }
-.modal__title {
-  margin: 0 0 .35rem;
-  font-size: 1.4rem;
-  color: #1a1a1a;
-}
-.modal__body p {
-  margin: .5rem 0;
-  color: #333;
-  line-height: 1.65;
-  text-align: left;               /* requirement: left-justified */
+.histories h2{
+  color:var(--accent-strong);
+  margin:0 0 .75rem;
+  letter-spacing:.2px;
 }
 
-/* Keyboard focus for modal close */
-.modal__close:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(200,162,200,.35);
-  border-radius: 8px;
-}
-
-/* ---------- HISTORIES (hidden until targeted) ---------- */
-/* Place a <section id="histories"> after your collections;
-   Clicking subnav “Histories” (href="#histories") reveals it. */
-#histories { display: none; }
-#histories:target { display: block; }
-
-.histories {
-  max-width: 1100px;
-  margin: 1.5rem auto 3rem;
-  padding: 0 1rem;
-  text-align: left;               /* requirement: left-justified */
-}
-.histories h2 {
-  color: #e0d0ff;
-  margin-bottom: .75rem;
-}
-
-/* A single history entry with image + body */
-.history-entry {
-  display: grid;
-  gap: 1rem;
-  align-items: start;
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.35);
-  border-radius: 12px;
+/* Each history entry */
+.history-entry{
+  display:grid; gap:1rem; align-items:start;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:12px;
   backdrop-filter: blur(3px);
-  box-shadow: 0 10px 28px rgba(0,0,0,.45);
-  padding: 1rem;
-  margin-bottom: 1.5rem;
+  box-shadow:0 10px 28px rgba(0,0,0,.45);
+  padding:1rem; margin-bottom:1.5rem;
 }
-@media(min-width: 900px) {
-  .history-entry {
+@media (min-width: 900px){
+  .history-entry{
     grid-template-columns: minmax(280px, 34%) 1fr;
-    gap: 1.25rem;
+    gap:1.25rem;
   }
 }
+.history-entry__img{
+  width:100%; aspect-ratio:4/3; object-fit:cover;
+  border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,.35);
+  background:#0f0f14;
+}
+.history-entry__body h3{
+  margin:.2rem 0 .4rem; font-size:1.3rem; color:#f4f4f4;
+}
+.history-entry__body p{
+  color:var(--muted); line-height:1.65; margin:.55rem 0;
+}
+.history-facts p strong{ color:#f4f4f4; }
 
-/* Only images inside histories are styled (doesn’t touch collection cards) */
-.history-entry__img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.35);
-  background: #0f0f14;
+/* Keyboard focus helpers */
+.subnav__btn:focus-visible,
+.interpretation-btn:focus-visible,
+.modal__close:focus-visible{ outline:none; box-shadow:var(--focus); border-radius:8px; }
+
+/* Print — keep it tidy */
+@media print{
+  .subnav, .notice, .modal{ display:none !important; }
+  .histories{ max-width:100%; padding:0; }
+  .history-entry{ background:#fff; border:1px solid #ccc; box-shadow:none; }
+  .history-entry__body h3{ color:#111; }
 }
 
-.history-entry__body h3 {
-  margin: .2rem 0 .4rem;
-  font-size: 1.3rem;
-  color: #f4f4f4;
-}
-.history-entry__body p {
-  color: #cfc9da;
-  line-height: 1.65;
-  margin: .55rem 0;
-}
-.history-facts p strong { color: #f4f4f4; }
