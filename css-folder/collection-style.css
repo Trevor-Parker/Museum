@@ -556,3 +556,46 @@ footer {
   text-align: center !important;
   padding: 1.25rem 1rem !important;
 }
+/* ===== Fix: cap image size and align to top on desktop ===== */
+.collection-item > img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;          /* sensible cap for desktop */
+  object-fit: cover;
+  background: #141414;
+}
+
+@media (min-width: 860px) {
+  .collection-item {
+    display: grid;
+    grid-template-columns: minmax(320px, 40%) 1fr;  /* give images a bit more room */
+    align-items: start;                              /* don’t stretch the image track */
+  }
+  .collection-item > img {
+    height: auto !important;     /* override earlier 100% */
+    max-height: 420px;           /* keep images tidy */
+    aspect-ratio: auto;          /* let the cap control height */
+    align-self: start;           /* pin image to the top */
+    border-right: var(--border);
+  }
+  /* keep alternating layout if you use it */
+  .collections--intrigue .collection-item:nth-child(even) {
+    grid-template-columns: 1fr minmax(320px, 40%);
+  }
+  .collections--intrigue .collection-item:nth-child(even) > img {
+    order: 2;
+    border-right: none;
+    border-left: var(--border);
+  }
+}
+
+/* center the whole stack; ensure no stray floats push it aside */
+#collections {
+  max-width: 1100px;
+  margin: 2rem auto 4rem;   /* centers the grid */
+  padding: 0 1rem;
+  display: grid;
+  gap: 2.5rem;
+  clear: both;              /* guard against legacy floats elsewhere */
+}
+.collection-item { float: none; }  /* hard-stop any inherited float */
