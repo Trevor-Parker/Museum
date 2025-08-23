@@ -1,1 +1,190 @@
+/* =========================
+   Museum of Magic — Cart
+   ========================= */
+:root{
+  --bg-overlay: rgba(0,0,0,.60);
+  --panel: rgba(255,255,255,.08);
+  --panel-strong: rgba(255,255,255,.12);
+  --text:#f4f4f4;
+  --muted:#cfc9da;
+  --accent:#c8a2c8;
+  --accent-strong:#e0d0ff;
+  --shadow:0 8px 30px rgba(0,0,0,.45);
+  --radius:14px;
+  --radius-sm:10px;
+  --border:1px solid rgba(255,255,255,.15);
+  --focus:0 0 0 3px rgba(200,162,200,.35);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:'Playfair Display', serif;
+  margin:0;
+  color:var(--text);
+  background:url('../images/magical-library-museum.jpg') center/cover no-repeat fixed;
+  min-height:100dvh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background:var(--bg-overlay);
+  z-index:-1;
+}
+
+/* ===== Header + Nav (matches site) ===== */
+header{
+  padding:2rem 1rem 1.25rem;
+  background:rgba(20,20,20,.75);
+  border-bottom:var(--border);
+  box-shadow:var(--shadow);
+  text-shadow:1px 1px 2px rgba(0,0,0,.85);
+}
+header h1{ margin:0; text-align:center; letter-spacing:.5px; }
+.main-nav{ margin-top:.8rem; display:flex; justify-content:center; }
+.main-nav ul{
+  list-style:none; margin:0; padding:.5rem .75rem;
+  display:flex; gap:1.2rem;
+  background:var(--panel);
+  border:var(--border); border-radius:var(--radius-sm);
+  backdrop-filter:blur(3px);
+}
+.main-nav a{
+  color:var(--text); text-decoration:none; font-weight:700;
+  padding:.45rem .7rem; border-radius:8px;
+  transition:color .16s ease, background .16s ease, transform .16s ease;
+}
+.main-nav a:hover{ color:var(--accent); background:rgba(255,255,255,.05); }
+.main-nav a:focus-visible{ outline:none; box-shadow:var(--focus); }
+
+/* ===== Cart Layout ===== */
+.cart-wrap{
+  max-width:1100px;
+  margin:2rem auto 3rem;
+  padding:0 1rem;
+  display:grid;
+  gap:1.5rem;
+}
+@media (min-width: 960px){
+  .cart-wrap{
+    grid-template-columns: 1fr minmax(320px, 38%);
+    align-items:start;
+  }
+}
+
+/* Controls (member toggle) */
+.controls{
+  grid-column:1 / -1;
+  background:var(--panel);
+  border:var(--border);
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow);
+  padding:.75rem 1rem;
+  display:flex; align-items:center; gap:.75rem;
+}
+.controls label{ color:var(--text); }
+.controls input[type="checkbox"]{
+  width:18px; height:18px; accent-color:#6c63ff; cursor:pointer;
+}
+
+/* Cards */
+#items, #summary, #emptyMsg{
+  background:var(--panel);
+  border:var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:1rem 1rem 1.1rem;
+}
+
+/* Empty state */
+#emptyMsg{
+  color:var(--muted);
+  border-style:dashed;
+  text-align:left;
+}
+
+/* Line items list */
+#items{ text-align:left; }
+.line{
+  display:grid;
+  grid-template-columns: 1fr minmax(120px, .6fr) auto;
+  align-items:center;
+  gap:.6rem .8rem;
+  padding:.5rem 0;
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.line:last-child{ border-bottom:none; }
+.line-text{ color:var(--text); }
+.line-amount{
+  text-align:right;
+  font-variant-numeric: tabular-nums;
+  color:#fff;
+}
+
+/* Remove buttons (inline) */
+.line button{
+  background:#5b1a1a;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:8px;
+  padding:.35rem .6rem;
+  cursor:pointer;
+  transition:filter .15s ease, transform .15s ease;
+}
+.line button:hover{ filter:brightness(1.05); transform:translateY(-1px); }
+.line button:focus-visible{ outline:none; box-shadow:var(--focus); }
+
+/* Summary block (pre) */
+#summary{
+  color:#0f0f12;
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(0,0,0,.12);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space:pre;
+  overflow:auto;
+  border-radius:12px;
+}
+#summary::before{
+  content:"Invoice Summary";
+  display:block;
+  font-family:'Playfair Display', serif;
+  font-weight:700;
+  color:#1a1a1a;
+  margin:.25rem .15rem .5rem;
+}
+
+/* Footer actions */
+.actions{
+  grid-column:1 / -1;
+  display:flex; gap:.75rem; flex-wrap:wrap;
+}
+.actions button{
+  background:#30336b; color:#fff;
+  border:none; border-radius:10px;
+  padding:.55rem .9rem; font-weight:700; cursor:pointer;
+  transition:transform .15s ease, filter .15s ease;
+}
+.actions button:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+.actions a{
+  display:inline-block; text-decoration:none; color:#fff;
+  background:#2b2b2b; border:1px solid rgba(255,255,255,.18);
+  padding:.55rem .9rem; border-radius:10px; font-weight:700;
+}
+.actions a:hover{ filter:brightness(1.05); transform:translateY(-1px); }
+
+/* Focus */
+a:focus-visible, button:focus-visible{
+  outline:none; box-shadow:var(--focus); border-radius:8px;
+}
+
+/* Print */
+@media print{
+  body{ background:#fff !important; color:#111 !important; }
+  body::before, header, .main-nav, .controls, .actions{ display:none !important; }
+  .cart-wrap{ grid-template-columns:1fr !important; margin:0; padding:0; }
+  #items, #summary, #emptyMsg{
+    background:#fff; border:1px solid #ccc; box-shadow:none; border-radius:0;
+  }
+}
 
