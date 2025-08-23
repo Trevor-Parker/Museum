@@ -491,3 +491,68 @@ footer {
   padding: 1.25rem 1rem;
   border-top: 1px solid rgba(255,255,255,0.15);
 }
+/* ===== Collections quarantine overrides (place LAST in collection-style.css) ===== */
+
+/* Center the container even if another CSS sets margins/flex wrongly */
+#collections {
+  max-width: 1100px !important;
+  margin: 2rem auto 4rem !important;  /* centers */
+  padding: 0 1rem !important;
+  display: grid !important;
+  gap: 2.5rem !important;
+  float: none !important;
+  text-align: left !important;
+}
+
+/* Neutralize any stray floats or flex alignment on cards */
+#collections .collection-item {
+  float: none !important;
+  margin: 0 !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important; /* stack on mobile */
+  align-items: stretch !important;
+  text-align: left !important;
+}
+
+/* Two-column on desktop, alternating image side */
+@media (min-width: 900px) {
+  #collections .collection-item {
+    grid-template-columns: minmax(280px, 38%) 1fr !important;
+  }
+  #collections.collections--intrigue .collection-item:nth-child(even) {
+    grid-template-columns: 1fr minmax(280px, 38%) !important;
+  }
+  #collections.collections--intrigue .collection-item:nth-child(even) > img {
+    order: 2 !important;
+    border-right: none !important;
+    border-left: 1px solid rgba(255,255,255,0.15) !important;
+  }
+}
+
+/* Images: hard cap so they can’t balloon */
+#collections .collection-item > img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 420px !important;
+  object-fit: cover !important;
+  aspect-ratio: auto !important; /* let max-height rule dominate on desktop */
+  display: block !important;
+  float: none !important;
+}
+
+/* Optional helpers if you use aspect classes in HTML */
+#collections .img--square   { aspect-ratio: 1 / 1 !important; }
+#collections .img--portrait { aspect-ratio: 3 / 4 !important; }
+#collections .img--wide     { aspect-ratio: 4 / 3 !important; }
+
+/* Keep the TOC from pushing layout */
+.toc { position: fixed !important; right: 12px; top: 100px; }
+
+/* Footer syntax fix (if needed) */
+footer {
+  width: 100% !important;
+  background-color: #000 !important;
+  color: #fff !important;
+  text-align: center !important;
+  padding: 1.25rem 1rem !important;
+}
