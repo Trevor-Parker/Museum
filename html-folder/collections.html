@@ -13,7 +13,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
 
+  <!-- Your existing page styles -->
   <link rel="stylesheet" href="../css-folder/collection-style.css" />
+  <!-- New: modals + histories styles (CSS-only behavior via :target) -->
+  <link rel="stylesheet" href="../css-folder/interpretations.css" />
 </head>
 <body>
   <header>
@@ -33,6 +36,19 @@
     </div>
   </header>
 
+  <!-- Subnavigation + user instruction -->
+  <nav class="subnav" aria-label="Collections subnavigation">
+    <a class="subnav__btn" href="#overview" aria-pressed="true">Overview</a>
+    <a class="subnav__btn" href="#histories">Histories</a>
+  </nav>
+
+  <p class="notice" role="note">
+    Tip: Click any artifact image—or its “Interpretation” button—to open a detailed interpretation modal.
+  </p>
+
+  <!-- Anchor for closing modals / default view -->
+  <div id="overview"></div>
+
   <!-- Sticky Mini Index (auto-generated) -->
   <aside id="toc" class="toc" aria-label="Artifact index" hidden>
     <div class="toc__inner">
@@ -46,14 +62,17 @@
   <main id="collections" class="collections--intrigue" role="main">
     <!-- Ocean-Weathered Va‘a Fragment -->
     <section class="collection-item" aria-labelledby="vaa-title">
-      <img
-        class="img--wide"
-        src="../images/collections/vaa-fragment.png"
-        alt="Ocean-weathered Va‘a hull fragment with shell inlay and rope lashings"
-        loading="lazy" width="1200" height="900"
-      />
+      <a href="#modal-vaa">
+        <img
+          class="img--wide"
+          src="../images/collections/vaa-fragment.png"
+          alt="Ocean-weathered Va‘a hull fragment with shell inlay and rope lashings"
+          loading="lazy" width="1200" height="900"
+        />
+      </a>
       <div class="collection-bio">
         <h2 id="vaa-title">Ocean-Weathered Va‘a Fragment</h2>
+        <a class="interpretation-btn" href="#modal-vaa">Interpretation</a>
         <ul class="artifact-details">
           <li><strong>Name:</strong> The Ocean-Weathered Va‘a Fragment</li>
           <li><strong>Material:</strong> Carved hardwood (breadfruit tree), coconut-fiber rope, seashell inlay</li>
@@ -76,14 +95,17 @@
 
     <!-- Dark Crystal Shard -->
     <section class="collection-item" aria-labelledby="dark-crystal-title">
-      <img
-        src="../images/collections/mountain-dark-crystal.png"
-        alt="Jagged dark crystal shard with faint inner luminescence"
-        loading="lazy"
-        width="1200" height="900"
-      />
+      <a href="#modal-dark">
+        <img
+          src="../images/collections/mountain-dark-crystal.png"
+          alt="Jagged dark crystal shard with faint inner luminescence"
+          loading="lazy"
+          width="1200" height="900"
+        />
+      </a>
       <div class="collection-bio">
         <h2 id="dark-crystal-title">Dark Crystal Shard</h2>
+        <a class="interpretation-btn" href="#modal-dark">Interpretation</a>
         <ul class="artifact-details">
           <li><strong>Name:</strong> Dark Crystal Shard</li>
           <li><strong>Material:</strong> Volcanic glass-like crystal, dark with faint inner luminescence.</li>
@@ -106,14 +128,17 @@
 
     <!-- Stone of Echoing Whispers -->
     <section class="collection-item" aria-labelledby="echoing-stone-title">
-      <img
-        class="img--square"
-        src="../images/collections/ritual-memory-stone.png"
-        alt="Spherical ritual stone with faintly glowing mineral veins and carvings"
-        loading="lazy" width="1200" height="900"
-      />
+      <a href="#modal-stone">
+        <img
+          class="img--square"
+          src="../images/collections/ritual-memory-stone.png"
+          alt="Spherical ritual stone with faintly glowing mineral veins and carvings"
+          loading="lazy" width="1200" height="900"
+        />
+      </a>
       <div class="collection-bio">
         <h2 id="echoing-stone-title">Stone of Echoing Whispers</h2>
+        <a class="interpretation-btn" href="#modal-stone">Interpretation</a>
         <ul class="artifact-details">
           <li><strong>Name:</strong> Stone of Echoing Whispers</li>
           <li><strong>Material:</strong> Granite-like stone infused with mineral veins glowing faintly.</li>
@@ -136,14 +161,17 @@
 
     <!-- The Hollow Husk -->
     <section class="collection-item" aria-labelledby="husk-title">
-      <img
-        class="img--portrait"
-        src="../images/collections/hollow-husk.png"
-        alt="Elongated humanoid hollow husk with silvery filament veins"
-        loading="lazy" width="1200" height="900"
-      />
+      <a href="#modal-husk">
+        <img
+          class="img--portrait"
+          src="../images/collections/hollow-husk.png"
+          alt="Elongated humanoid hollow husk with silvery filament veins"
+          loading="lazy" width="1200" height="900"
+        />
+      </a>
       <div class="collection-bio">
         <h2 id="husk-title">The Hollow Husk</h2>
+        <a class="interpretation-btn" href="#modal-husk">Interpretation</a>
         <ul class="artifact-details">
           <li><strong>Name:</strong> The Hollow Husk</li>
           <li><strong>Material:</strong> Semi-organic remains; leathery tissue, bone-like ridges, and silvery filament veins.</li>
@@ -166,14 +194,17 @@
 
     <!-- Patron’s Coin of Eternal Credit -->
     <section class="collection-item" aria-labelledby="coin-title">
-      <img
-        class="img--square"
-        src="../images/collections/Patrons-Coin-of-Eternal-Credit.png"
-        alt="Spherical ritual stone with faintly glowing mineral veins and carvings"
-        loading="lazy" width="1200" height="900"
-      />
+      <a href="#modal-coin">
+        <img
+          class="img--square"
+          src="../images/collections/Patrons-Coin-of-Eternal-Credit.png"
+          alt="Pristine etched silver coin with shifting runes and an infinity motif"
+          loading="lazy" width="1200" height="900"
+        />
+      </a>
       <div class="collection-bio">
         <h2 id="coin-title">Patron’s Coin of Eternal Credit</h2>
+        <a class="interpretation-btn" href="#modal-coin">Interpretation</a>
         <ul class="artifact-details">
           <li><strong>Name:</strong> Patron’s Coin of Eternal Credit</li>
           <li><strong>Material:</strong> Etched silver alloy with faint traces of stardust</li>
@@ -196,14 +227,17 @@
 
     <!-- Rose’s Twitching Charm -->
     <section class="collection-item" aria-labelledby="rose-charm-title">
-      <img
-        src="../images/collections/rose-fang-charm.png"
-        alt="Bone shard amulet bound in braided sinew and root fibers, runes faintly glowing"
-        loading="lazy"
-        width="1200" height="1800"
-      />
+      <a href="#modal-rose">
+        <img
+          src="../images/collections/rose-fang-charm.png"
+          alt="Bone shard amulet bound in braided sinew and root fibers, runes faintly glowing"
+          loading="lazy"
+          width="1200" height="1800"
+        />
+      </a>
       <div class="collection-bio">
         <h2 id="rose-charm-title">Rose’s Twitching Charm</h2>
+        <a class="interpretation-btn" href="#modal-rose">Interpretation</a>
         <ul class="artifact-details">
           <li><strong>Name:</strong> Rose’s Twitching Charm</li>
           <li><strong>Material:</strong> Braided sinew, dried root fibers, and a shard of translucent bone</li>
@@ -226,14 +260,17 @@
 
     <!-- The Archivist’s Sternum Fragment -->
     <section class="collection-item" aria-labelledby="sternum-title">
-      <img
-        src="../images/collections/archivists-sternum.png"
-        alt="Sternum-shaped bone plate with crystalline veins and glowing runic sutures"
-        loading="lazy"
-        width="1200" height="1600"
-      />
+      <a href="#modal-sternum">
+        <img
+          src="../images/collections/archivists-sternum.png"
+          alt="Sternum-shaped bone plate with crystalline veins and glowing runic sutures"
+          loading="lazy"
+          width="1200" height="1600"
+        />
+      </a>
       <div class="collection-bio">
         <h2 id="sternum-title">The Archivist’s Sternum Fragment</h2>
+        <a class="interpretation-btn" href="#modal-sternum">Interpretation</a>
         <ul class="artifact-details">
           <li><strong>Name:</strong> The Archivist’s Sternum Fragment</li>
           <li><strong>Material:</strong> Calcified bone plate, unusually dense, veined with crystalline growths</li>
@@ -255,6 +292,166 @@
     </section>
   </main>
 
+  <!-- ===== HISTORIES (hidden until #histories is targeted) ===== -->
+  <section id="histories" class="histories" aria-labelledby="histories-title">
+    <h2 id="histories-title">Histories & Comparative Notes</h2>
+
+    <!-- History 1: Va‘a (≥ 400 words, includes image) -->
+    <article class="history-entry" id="history-vaa">
+      <img src="../images/collections/vaa-fragment.png"
+           alt="Va‘a hull fragment with shell inlay" class="history-entry__img" />
+      <div class="history-entry__body">
+        <h3>Ocean-Weathered Va‘a Fragment — A Ledger of Work</h3>
+        <div class="history-facts">
+          <p><strong>Facts:</strong> Breadfruit hardwood; coconut-fiber lashings; seashell inlay. Length ~1.5 m, ~20 kg. Found in a coastal midden with fishing implements and shell ornaments. Rope-wear grooves and resin traces present. Carbon-dated ~800 years.</p>
+        </div>
+        <div class="history-interpretation">
+          <p><strong>Interpretation:</strong> Middens keep the lives of things after their names are forgotten. To set a hull fragment within a household deposit is to say that its value was lived with, worn down, and finally returned to the same circle that sharpened hooks and cooked fish. Breadfruit wood and coconut-fiber lashings speak a grammar shared across the Pacific: flexible timber that rises and yields to swell, and cordage that distributes strain rather than locking it in place. Where iron fastenings fracture, lashings breathe. The resin pressed into seams marks care at sea—the work between storms when a crew inspects, mends, and recommits the canoe to another crossing. Shell inlay may be mnemonic, mapping the paths of lashings or the palms’ habitual purchase. It may also be aesthetic in a way that is practical: contrasting texture and shine train the eye and hand in the same gesture.</p>
+          <p>In many telling of voyages, we chase beginnings and landfalls. This fragment argues for the middle: the maintenance cycle, the unglamorous chores that keep a community in motion. The wear is a syllabus. The curve shows a builder’s attention to waterline and lift; the grooves testify to repeated, trustworthy tension; the resin teaches the rhythm of inspection and repair. A midden context supports this reading: the fragment enters the domestic archive where used things gather—not a shrine, but a ledger of labor.</p>
+          <p>Comparison to fragments from Tahiti and Hawaiʻi links this piece to a federation of technique rather than a single lineage. Depth and placement of rope-wear grooves resemble other double-hulled components; the seam mends cluster where builders learned the swell would press hardest. Differences in shell inlay patterns likely indicate teaching preferences or regional lashing paths more than status display. The artifact refuses any narrative of conquest; it instead curates a memory of reliability. Carve to flex, lash to distribute, mend to continue: three verbs that bind islands to one another as surely as stars do.</p>
+        </div>
+        <div class="history-comparative">
+          <p><strong>Comparative Notes:</strong> Across curated examples, post-use deposition in middens is common, as if communities wished their canoes to finish among the daily instruments that sustained the same voyages. Resin compositions vary, which may encode resource availability rather than doctrinal difference. Lashing groove profiles correlate with cordage diameter; this fragment’s profile suggests a balance between strength and replaceability favored in extended inter-island traffic.</p>
+        </div>
+        <div class="history-caution">
+          <p><strong>Cautionary Note on Interpretation:</strong> Without adjoining timbers and a complete lashing schema, we cannot confirm canoe class, sail plan, or route. Shell inlay readings remain hypotheses. Respect for navigators and builders means leaving confirmatory readings to communities who hold that knowledge, while presenting the observable lessons of wear and repair.</p>
+        </div>
+        <p class="history-credit"><em>On display, courtesy of the Museum of Magic Collections Department.</em></p>
+      </div>
+    </article>
+
+    <!-- History 2: The Archivist’s Sternum (≥ 400 words, includes image) -->
+    <article class="history-entry" id="history-sternum">
+      <img src="../images/collections/archivists-sternum.png"
+           alt="Sternum-shaped bone plate with crystalline veins" class="history-entry__img" />
+      <div class="history-entry__body">
+        <h3>The Archivist’s Sternum Fragment — Reading in Bone</h3>
+        <div class="history-facts">
+          <p><strong>Facts:</strong> Calcified, unusually dense bone plate with the flat curve of a human sternum; roughly hand-sized yet heavy for its dimensions. Crystal veins glow faintly. Discovered deep in the Museum archives, misfiled among anatomical teaching specimens; catalogued alone with nearby jars bearing numbers struck through in red ink. Inscriptions resemble surgical sutures and are reported to glow on bare touch, especially along scar tissue. Carbon dating and comparative osteology return no age.</p>
+        </div>
+        <div class="history-interpretation">
+          <p><strong>Interpretation:</strong> Archives keep two memories: the arranged and the mislaid. This fragment belongs to the second, the kind that reveals the limits of the first. Its heft slows the hand. The suture-like script guides the eye along curves a ribcage already knows. Communities that keep vows in bodies rather than books are not strangers to ocean people; we, too, have read weather from scars and stories from callus. The Museum’s hypothesis—ritual ledger bone for debts or oaths—fits the material, finish, and reported behavior at touch. Where a personal charm binds a single life to a sign, a ledger binds many lives to a role. A sternum, seat of breath and witness, suits such work: near enough to feel, durable enough to last.</p>
+          <p>Yet the fragment’s entrance into the archive without record teaches another lesson: context is part of truth. Without chain-of-custody, demonstration should not become performance. Public display can model care by presenting what is seen (bone, crystal veins, sutural inscription) and what is said (glow on touch), while resisting theatrics that would convert testimony into spectacle. The crystal veins align with paths of inscription as if craft followed structure, not unlike a shipwright aligning grain and lashing. If the glow does concentrate at scars, the object stages an ethics of remembrance: a record that answers the history written on a body without erasing it.</p>
+        </div>
+        <div class="history-comparative">
+          <p><strong>Comparative Notes:</strong> The bone-script echoes markings on Rose’s Twitching Charm but differs in scale and polish, suggesting institutional custody rather than intimate amulet. Unlike ossuary inscriptions built for burial, this plate shows no funerary abrasion; edge wear is minimal, implying careful storage and episodic consultation rather than continuous handling. The absence of companion pieces argues for a portable register rather than a bound set.</p>
+        </div>
+        <div class="history-caution">
+          <p><strong>Cautionary Note on Interpretation:</strong> Touch-responsive glow remains an observation, not a replicated experiment. Indeterminate dating prevents cultural assignment by period or region. Until communities with knowledge or claim speak to it, the exhibit should refrain from definitive origin stories and instead show how careful attention can hold an object that may, in turn, hold us.</p>
+        </div>
+        <p class="history-credit"><em>On display, courtesy of the Museum of Magic Archives.</em></p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===== CSS-ONLY INTERPRETATION MODALS (no images inside) ===== -->
+  <div id="modal-vaa" class="modal" role="dialog" aria-labelledby="modal-vaa-title">
+    <div class="modal__dialog">
+      <a class="modal__close" href="#overview" aria-label="Close">×</a>
+      <div class="modal__content">
+        <h2 id="modal-vaa-title" class="modal__title">Ocean-Weathered Va‘a Fragment — Interpretation</h2>
+        <div class="modal__body">
+          <p><strong>Material:</strong> Carved breadfruit hardwood; coconut-fiber rope; seashell inlay.</p>
+          <p><strong>Function:</strong> Hull component for a double-hulled voyaging canoe; rope-wear grooves and resin traces indicate repeated lashing and repair.</p>
+          <p><strong>Location Found:</strong> Coastal midden on a Polynesian atoll; found with fishing implements and shell ornaments.</p>
+          <p><strong>Interpretation:</strong> The curved, 1.5 m fragment (~20 kg) preserves a practical grammar of ocean travel: flexible breadfruit timber shaped to shed water, fiber lashings that spread load, and resin pressed into seams following hard weather. A midden context argues for long service rather than ritual retirement; the fragment’s life ended among other used things that sustained the same voyages it once enabled. Comparison to related fragments from Tahiti and Hawaiʻi situates this piece within a shared constellation of technique rather than a single lineage: carve to flex, lash to distribute strain, mend to continue. Shell inlay may map lashing paths or habitual handholds, training the hand through sight—this is a cautious, not definitive, reading. What remains certain is written in the material and wear. This was a working body of a canoe, a ledger of maintenance and return. If voyaging stories often chase heroics, this fragment keeps the rhythm between them—the careful cycle by which communities remain in motion.</p>
+          <p><em>Catalog / Provenience ID:</em> Artifact 1</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-dark" class="modal" role="dialog" aria-labelledby="modal-dark-title">
+    <div class="modal__dialog">
+      <a class="modal__close" href="#overview" aria-label="Close">×</a>
+      <div class="modal__content">
+        <h2 id="modal-dark-title" class="modal__title">Dark Crystal Shard — Interpretation</h2>
+        <div class="modal__body">
+          <p><strong>Material:</strong> Volcanic glass-like crystal with faint inner luminescence.</p>
+          <p><strong>Function:</strong> Likely ritual or energy-focusing conduit; micro-striations suggest handling or embedding.</p>
+          <p><strong>Location Found:</strong> Mountain crevice within basalt; only mineral scatter nearby.</p>
+          <p><strong>Interpretation:</strong> The shard’s density relative to its size, unweathered edges, and lumen-like glow support deliberate placement and careful retrieval. With no associated tools, strong claims exceed the record; however, nearby cairns and petroglyphs depicting jagged stones offer cultural context for the idea of a “mountain heart.” In maritime practice, stones stabilize ritual attention; inland, a luminous shard may have served a similar purpose, aligning a group’s focus as its facets caught shifting light like a fixed star. “Energy-focusing” remains hypothetical; what is grounded is patterned handling along edges and protection from abrasion in the crevice. If once embedded, the shard may have been a focal insert in a stack or platform, a geometry of attention rather than a source of force. Good interpretation privileges observed behavior and context over dramatic explanation, inviting careful looking where certainty runs thin.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-stone" class="modal" role="dialog" aria-labelledby="modal-stone-title">
+    <div class="modal__dialog">
+      <a class="modal__close" href="#overview" aria-label="Close">×</a>
+      <div class="modal__content">
+        <h2 id="modal-stone-title" class="modal__title">Stone of Echoing Whispers — Interpretation</h2>
+        <div class="modal__body">
+          <p><strong>Material:</strong> Granite-like stone with faintly glowing mineral veins; precise carvings.</p>
+          <p><strong>Function:</strong> Ritual anchor for absorbing/reflecting spiritual energy; surface shows burn rings.</p>
+          <p><strong>Location Found:</strong> Highland ritual site near collapsed altar stones.</p>
+          <p><strong>Interpretation:</strong> The roughly spherical mass (≈40 cm; ~25 kg) resists topple and takes heat evenly, consistent with stationary anchoring near fire. Burn rings record repeated, controlled exposure; aligned veins and carved geometry suggest deliberate orientation to ritual axes. Reports of faint chanting are preserved as testimony, not replicated in testing. The durable lesson lies in how dependable materials and repeatable marks create a frame for meaning to appear. Unlike many anchors, this stone retains active resonance; thus the exhibit emphasizes patient observation and community guidance over demonstration. We present the stone as a structure for attention rather than a spectacle, grounding our reading in mass, heat marks, and alignment rather than claims that exceed the evidence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-husk" class="modal" role="dialog" aria-labelledby="modal-husk-title">
+    <div class="modal__dialog">
+      <a class="modal__close" href="#overview" aria-label="Close">×</a>
+      <div class="modal__content">
+        <h2 id="modal-husk-title" class="modal__title">The Hollow Husk — Interpretation</h2>
+        <div class="modal__body">
+          <p><strong>Material:</strong> Semi-organic remains; leathery tissue, bone-like ridges, silvery filament veins.</p>
+          <p><strong>Function:</strong> Unknown; possible vessel, biological construct, or ritual focus.</p>
+          <p><strong>Location Found:</strong> Subterranean cavern chamber; no formal interment.</p>
+          <p><strong>Interpretation:</strong> The elongated, desiccated silhouette (~1.8 m) retains volume with minimal collapse, implying planned structure: ridges distribute load, filaments follow seams of least tension. Wear and fracture along filament routes suggest depletion or transfer rather than simple decay. Found alone, in a chamber where eyes and spirals were carved into stone, the object gathers feelings—“watched,” “present”—that belong to testimony, not taxonomy. No cut marks or fabrication seams appear; a hybrid origin remains plausible: grown, then guided. Until non-destructive testing clarifies tissue lineage and development, we interpret with restraint. The husk may have served as a container for presence or as a vacated shell whose purpose was episodic. In communities where such forms are sensitive, museums honor that by showing structure, context, and silence in equal measure, inviting careful looking instead of final conclusions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-coin" class="modal" role="dialog" aria-labelledby="modal-coin-title">
+    <div class="modal__dialog">
+      <a class="modal__close" href="#overview" aria-label="Close">×</a>
+      <div class="modal__content">
+        <h2 id="modal-coin-title" class="modal__title">Patron’s Coin of Eternal Credit — Interpretation</h2>
+        <div class="modal__body">
+          <p><strong>Material:</strong> Etched silver alloy with faint stardust traces; etchings shift with angle.</p>
+          <p><strong>Function:</strong> Narrative function: a token said to ensure the bearer need not worry over wealth or safety.</p>
+          <p><strong>Location Found:</strong> Appeared in Museum archives; always solitary; no burial context.</p>
+          <p><strong>Interpretation:</strong> Palm-sized and unnaturally light, the coin’s perfect preservation and reported “untouchable” surface constrain residue analysis. The alloy resists dating; provenance is anecdotal. In many traditions, tokens of obligation circulate as memory—less currency than promise. Shifting etchings align with a record that updates by witness rather than by mint. Claims of guaranteed fortune belong to story, not to measurable mechanism. For exhibition, the responsible path is bifocal: present what can be seen (alloy, etching behavior, lack of wear) while situating the coin among patronage stories that communities tell to bind care and risk. In that light, the coin teaches less about wealth than about our desire to anchor uncertainty to a form one can hold. Its solitary appearances and unblemished face underscore the lesson: obligation can be imagined as inexhaustible, but it remains a human arrangement that needs tending, not an artifact that does the tending for us.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-rose" class="modal" role="dialog" aria-labelledby="modal-rose-title">
+    <div class="modal__dialog">
+      <a class="modal__close" href="#overview" aria-label="Close">×</a>
+      <div class="modal__content">
+        <h2 id="modal-rose-title" class="modal__title">Rose’s Twitching Charm — Interpretation</h2>
+        <div class="modal__body">
+          <p><strong>Material:</strong> Braided sinew and root fibers; translucent bone shard carved in suture-like script.</p>
+          <p><strong>Function:</strong> Protective charm with predatory undertones; sympathetic bond to bearer.</p>
+          <p><strong>Location Found:</strong> Brought from the forest’s edge near wolf territories.</p>
+          <p><strong>Interpretation:</strong> Small, warm, and faintly flexing, the charm stands on a boundary: between nurture and fang, healing and the wound that makes vigilance. The bone-script suggests a practitioner who read flesh as language; fibers that tense in hand indicate feedback more than threat. Unlike institutional bone-records, this charm is scaled to a single life—an amulet to keep close. Its solitary arrival (carried in jaws) underscores intimacy of use and complicates provenance. Without direct community testimony, we avoid naming a culture; we ground the reading in materials, behavior, and forest context. The comparison to the Archivist’s sternum script suggests shared technique at a personal scale, where obligation is carried daily rather than consulted ritually. If protection here is learned from predator attention rather than against it, then the charm teaches that safety can be a relation—alertness braided with trust—rather than a wall.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-sternum" class="modal" role="dialog" aria-labelledby="modal-sternum-title">
+    <div class="modal__dialog">
+      <a class="modal__close" href="#overview" aria-label="Close">×</a>
+      <div class="modal__content">
+        <h2 id="modal-sternum-title" class="modal__title">The Archivist’s Sternum Fragment — Interpretation</h2>
+        <div class="modal__body">
+          <p><strong>Material:</strong> Calcified bone plate, unusually dense; crystal veins faintly luminescent.</p>
+          <p><strong>Function:</strong> Proposed ritual ledger bone for debts/oaths in living script; runes glow on bare touch, especially along scar tissue.</p>
+          <p><strong>Location Found:</strong> Discovered misfiled among anatomical teaching specimens; catalogued alone.</p>
+          <p><strong>Interpretation:</strong> Hand-sized yet heavy, sternum-curved and perfectly finished, this plate reads as an institutional record more than a keepsake. Suture-like inscriptions echo Rose’s charm at a different scale and polish, aligning with a role meant to witness many vows. The reported glow on touch remains observation, not mechanism; carbon dating and comparative osteology fail, leaving age indeterminate. The careful path is functional: a record read by hand and skin, carried by a role rather than a person. Public display avoids performance; it emphasizes how communities externalize memory—on bark, stone, or here in bone—so promises can be witnessed and, when needed, forgiven. The fragment’s undocumented arrival in the archives cautions us to show absence alongside presence: context lost is part of the story we now keep.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOC script retained -->
   <script defer>
   (function () {
     const container = document.getElementById('toc');
@@ -311,7 +508,7 @@
       }
     }, {
       root: null,
-      rootMargin: '-20% 0px -55% 0px', // bias to center-ish
+      rootMargin: '-20% 0px -55% 0px',
       threshold: [0.15, 0.35, 0.55, 0.75]
     });
 
