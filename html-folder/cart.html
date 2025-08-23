@@ -12,6 +12,9 @@
     .empty { padding: 12px; border: 1px dashed #666; font-style: italic; }
     pre#summary { background: #f8f8f8; padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     .actions { margin-top: 12px; display: flex; gap: 8px; }
+    .line { display:flex; align-items:center; gap:10px; padding:6px 0; }
+    .line-text { flex:1; }
+    .line-amount { width: 160px; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   </style>
 </head>
 <body>
@@ -39,9 +42,6 @@
 
   <script>
   /* =================== PIPE FROM shop.html (leave as-is) =================== */
-  // shop.html must write items with: data-id, data-name, data-price, data-image
-  // addToCart(btn) should push objects { id, name, unitPrice, qty, image } to localStorage
-
   const CART_KEY = 'museumCartV1'; // MUST match shop.html
 
   function readCart(){
@@ -52,7 +52,6 @@
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
   }
   /* ================= END PIPE ============================================= */
-
 
   /* ====================== UTILITIES & CONSTANTS =========================== */
   // Currency with parentheses for negatives
@@ -96,62 +95,110 @@
   }
   /* ================== END UTILITIES & CONSTANTS =========================== */
 
-
-  /* ====================== STUDENT WORK STARTS HERE =========================
-     IMPLEMENT render() to mirror the commission assignment:
-
-     1) Load cart from readCart(); keep only items with qty > 0 and unitPrice > 0
-     2) If empty → show #emptyMsg and hide #items and #summary
-     3) Build a text-only list in #items:
-           Example line: "2 × Celestial Inkstone               $29.90"
-           Include a small Remove button per line that calls removeItem(id)
-     4) Math (single-discount rule):
-           ItemTotal = sum(unitPrice * qty)
-           If Member checked AND Volume tier would apply → PROMPT user to choose:
-             "Only one discount may be applied. Type 'M' for Member or 'V' for Volume:"
-             Apply only the chosen one; set the other to $0.00
-           Else apply Member OR Volume (not both)
-           Subtotal = ItemTotal − AppliedDiscount + SHIPPING_RATE
-           TaxAmount = Subtotal * TAX_RATE
-           InvoiceTotal = Subtotal + TaxAmount
-     5) Write a single summary block to #summary (like commission):
-           Subtotal of Items
-           Volume Discount
-           Member Discount
-           Shipping
-           Subtotal (Taxable)
-           Tax Rate %   (as a percentage text)
-           Tax Amount $ (as currency)
-           Invoice Total
-     6) Recompute (call render()) after:
-           - Member checkbox change
-           - Clear Cart
-           - Remove line item
-
-     KEEP IT SIMPLE: text output only, one render pass.
-  ========================================================================= */
-
+  /* ====================== STUDENT WORK STARTS HERE ========================= */
   function render(){
     const itemsDiv   = document.getElementById('items');
     const summaryPre = document.getElementById('summary');
     const emptyMsg   = document.getElementById('emptyMsg');
     const isMember   = document.getElementById('memberToggle').checked;
 
-    // TODO: STUDENT IMPLEMENTATION
-    // For now, show a placeholder so the page isn't blank.
-    itemsDiv.hidden = true;
-    summaryPre.hidden = false;
-    emptyMsg.hidden = true;
-    summaryPre.textContent =
-`TODO: Implement render() per the assignment spec.
+    // 1) Load & filter
+    let cart = readCart().filter(it => it && it.qty > 0 && it.unitPrice > 0);
+    if (cart.length !== readCart().length) writeCart(cart);
 
-Steps:
-1) Load cart from localStorage (readCart)
-2) If empty → show 'Your cart is empty.'
-3) Build text list of items with Remove buttons
-4) Compute totals with exactly one discount (prompt if both apply)
-5) Output a single summary block (commission-style)`;
+    // helper nested inside render to keep a single external function
+    function writeSummary(itemTotal, volDisc, memDisc){
+      const taxable = itemTotal - volDisc - memDisc + SHIPPING_RATE;
+      const taxAmt  = taxable * TAX_RATE;
+
+      const rows = [
+        ['Subtotal of Items',  money(itemTotal)],
+        ['Volume Discount',    money(-volDisc)],
+        ['Member Discount',    money(-memDisc)],
+        ['Shipping',           money(SHIPPING_RATE)],
+        ['Subtotal (Taxable)', money(taxable)],
+        ['Tax Rate',           (TAX_RATE * 100).toFixed(1) + '%'],
+        ['Tax Amount',         money(taxAmt)],
+        ['Invoice Total',      money(taxable + taxAmt)]
+      ];
+
+      let amountWidth = 0, labelWidth = 0;
+      for (const [label, amt] of rows){
+        amountWidth = Math.max(amountWidth, amt.length);
+        labelWidth  = Math.max(labelWidth,  label.length);
+      }
+      let out = '';
+      for (const [label, amt] of rows){
+        out += label.padEnd(labelWidth) + '  ' + amt.padStart(amountWidth) + '\n';
+      }
+      summaryPre.textContent = out;
+      summaryPre.hidden = false;
+    }
+
+    // 2) Empty cart
+    if (cart.length === 0){
+      emptyMsg.hidden = false;
+      itemsDiv.hidden = true;
+      writeSummary(0, 0, 0);
+      return;
+    }
+
+    // 3) Items list (text lines + Remove)
+    itemsDiv.innerHTML = '';
+    for (const it of cart){
+      const line = document.createElement('div');
+      line.className = 'line';
+
+      const left = document.createElement('span');
+      left.className = 'line-text';
+      left.textContent = `${it.qty} × ${it.name}`;
+
+      const amount = document.createElement('span');
+      amount.className = 'line-amount';
+      amount.textContent = money(it.unitPrice * it.qty);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = 'Remove';
+      btn.addEventListener('click', () => removeItem(it.id));
+
+      line.appendChild(left);
+      line.appendChild(amount);
+      line.appendChild(btn);
+      itemsDiv.appendChild(line);
+    }
+    itemsDiv.hidden = false;
+    emptyMsg.hidden = true;
+
+    // 4) Math — single-discount rule
+    const itemTotal = cart.reduce((s, it) => s + it.unitPrice * it.qty, 0);
+    const vRate     = volumeRate(itemTotal);
+    const memberPossible = isMember;
+    const volumePossible = vRate > 0;
+
+    let applyMember = false;
+    let applyVolume = false;
+
+    if (memberPossible && volumePossible){
+      const resp = (prompt(
+        `Only one discount may be applied.\nType 'M' for Member (15%) or 'V' for Volume (${Math.round(vRate*100)}%).`
+      ) || '').trim().toUpperCase();
+      if (resp === 'M') applyMember = true;
+      else if (resp === 'V') applyVolume = true;
+      else applyVolume = true; // default if invalid
+    } else if (memberPossible){
+      applyMember = true;
+    } else if (volumePossible){
+      applyVolume = true;
+    }
+
+    const volDisc = applyVolume ? itemTotal * vRate : 0;
+    const memDisc = applyMember ? itemTotal * MEMBER_DISCOUNT_RATE : 0;
+
+    // 5) Single summary block
+    writeSummary(itemTotal, volDisc, memDisc);
   }
+  /* ======================= STUDENT WORK ENDS HERE ========================= */
 
   // Events → re-render
   document.getElementById('memberToggle').addEventListener('change', render);
