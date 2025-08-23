@@ -1,1 +1,35 @@
+/* Subnav + instruction */
+.subnav{display:flex;gap:.75rem;justify-content:center;align-items:center;margin:1rem auto .5rem;padding:.5rem 1rem}
+.subnav__btn{display:inline-block;text-decoration:none;background:rgba(255,255,255,.12);color:#f4f4f4;border:1px solid rgba(255,255,255,.25);padding:.5rem .9rem;border-radius:10px;font-weight:700;letter-spacing:.2px;transition:transform .15s ease,filter .15s ease,background .2s ease}
+.subnav__btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.notice{max-width:900px;margin:.25rem auto 1rem;padding:.6rem .9rem;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#f4f4f4;text-align:center}
+
+/* Interpretation trigger button under each item */
+.interpretation-btn{display:inline-block;margin-top:.6rem;background:#30336b;color:#fff;border:0;border-radius:10px;padding:.55rem .9rem;font-weight:700;text-decoration:none}
+.interpretation-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+/* ===== CSS-only MODALS (no images inside) ===== */
+.modal{display:none}
+.modal:target{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:rgba(0,0,0,.8);backdrop-filter:blur(2px)}
+.modal__dialog{width:min(900px,92vw);background:#fff;color:#111;border-radius:12px;box-shadow:0 24px 64px rgba(0,0,0,.6);position:relative;overflow:hidden}
+.modal__close{position:absolute;top:10px;right:12px;border:1px solid #ddd;background:#fff;color:#444;border-radius:8px;font-size:1.5rem;line-height:1;padding:0 .45rem .1rem;text-decoration:none}
+.modal__content{padding:1.25rem 1.25rem 1.1rem;text-align:left}
+.modal__title{margin:0 0 .35rem;font-size:1.4rem;color:#1a1a1a}
+.modal__body p{margin:.5rem 0;color:#333;line-height:1.65}
+
+/* ===== HISTORIES (hidden until targeted) ===== */
+#histories{display:none}
+#histories:target{display:block}
+.histories{max-width:1100px;margin:1.5rem auto 3rem;padding:0 1rem;text-align:left}
+.histories h2{color:#e0d0ff;margin-bottom:.75rem}
+
+.history-entry{display:grid;gap:1rem;align-items:start;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.35);border-radius:12px;backdrop-filter:blur(3px);box-shadow:0 10px 28px rgba(0,0,0,.45);padding:1rem;margin-bottom:1.5rem}
+@media(min-width:900px){.history-entry{grid-template-columns:minmax(280px,34%) 1fr;gap:1.25rem}}
+.history-entry__img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.35);background:#0f0f14}
+.history-entry__body h3{margin:.2rem 0 .4rem;font-size:1.3rem;color:#f4f4f4}
+.history-entry__body p{color:#cfc9da;line-height:1.65;margin:.55rem 0}
+.history-facts p strong{color:#f4f4f4}
+
+/* Focus styles (keyboard) */
+.subnav__btn:focus-visible,.interpretation-btn:focus-visible,.modal__close:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(200,162,200,.35);border-radius:8px}
 
